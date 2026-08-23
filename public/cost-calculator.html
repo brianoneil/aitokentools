@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI API Cost Calculator – Estimate GPT-4o, Claude & Gemini API Costs</title>
+  <meta name="description" content="Calculate your AI API costs across GPT-4o, Claude, Gemini, and more. Enter token counts and see exactly what you'll pay — free, no signup.">
+  <link rel="canonical" href="https://aitokentools.com/cost-calculator.html">
+  <meta property="og:title" content="AI API Cost Calculator – Estimate GPT-4o, Claude & Gemini API Costs">
+  <meta property="og:description" content="Calculate your AI API costs across GPT-4o, Claude, Gemini, and more. Enter token counts and see exactly what you'll pay.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/cost-calculator.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI API Cost Calculator",
+    "description": "Estimate your AI API costs for GPT-4, Claude, Gemini and other models.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    :root {
+      --color-bg: #ffffff; --color-surface: #f8f9fa; --color-border: #e9ecef;
+      --color-text: #212529; --color-muted: #6c757d; --color-accent: #0d6efd;
+      --color-accent-hover: #0b5ed7; --color-success: #198754;
+      --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --max-width: 760px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); color: var(--color-text); background: var(--color-bg); line-height: 1.5; }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    nav { border-bottom: 1px solid var(--color-border); background: #fff; position: sticky; top: 0; z-index: 10; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: .75rem 1rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--color-text); }
+    .nav-inner a { font-size: .9rem; color: var(--color-muted); }
+    .nav-inner a.active, .nav-inner a:hover { color: var(--color-accent); text-decoration: none; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
+    .subtitle { color: var(--color-muted); margin-bottom: 1.5rem; }
+    .tool-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-weight: 500; margin-bottom: .25rem; font-size: .875rem; }
+    select, input[type="number"] {
+      width: 100%; padding: .5rem .75rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); font-size: 1rem; background: #fff; color: var(--color-text);
+    }
+    select:focus, input:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 480px) { .grid-2 { grid-template-columns: 1fr; } }
+    .result-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; }
+    .result-table th { text-align: left; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-muted); padding: .5rem .75rem; border-bottom: 2px solid var(--color-border); }
+    .result-table td { padding: .6rem .75rem; border-bottom: 1px solid var(--color-border); font-size: .95rem; }
+    .result-table tr:last-child td { border-bottom: none; }
+    .result-table .cost { font-weight: 600; color: var(--color-success); }
+    .result-table .highlight td { background: #f0f9ff; }
+    .total-row td { font-weight: 700; font-size: 1.05rem; background: var(--color-surface); }
+    .ad-slot { background: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius); padding: 1.5rem; text-align: center; color: var(--color-muted); font-size: .875rem; margin: 2rem 0; }
+    .faq { margin-top: 2.5rem; }
+    .faq h2 { font-size: 1.1rem; margin: 1.5rem 0 .4rem; }
+    .faq p { color: var(--color-muted); line-height: 1.7; font-size: .95rem; }
+    footer { border-top: 1px solid var(--color-border); padding: 1.5rem 1rem; text-align: center; font-size: .85rem; color: var(--color-muted); margin-top: 3rem; }
+    footer a { color: var(--color-muted); }
+    .badge { display: inline-block; font-size: .75rem; padding: .1rem .4rem; border-radius: 4px; background: #e7f3ff; color: var(--color-accent); font-weight: 500; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">AITokenTools</span>
+    <a href="/">Token Counter</a>
+    <a href="/cost-calculator.html" class="active">Cost Calculator</a>
+    <a href="/model-comparison.html">Model Comparison</a>
+    <a href="/prompt-builder.html">Prompt Builder</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>AI API Cost Calculator</h1>
+  <p class="subtitle">Enter your token counts and request volume to see exact API costs across every major model.</p>
+
+  <div class="tool-card" x-data="costCalc()">
+    <div class="grid-2">
+      <div class="field">
+        <label for="input-tokens">Input tokens per request</label>
+        <input type="number" id="input-tokens" x-model.number="inputTokens" @input="calculate()" min="0" placeholder="e.g. 1000">
+      </div>
+      <div class="field">
+        <label for="output-tokens">Output tokens per request</label>
+        <input type="number" id="output-tokens" x-model.number="outputTokens" @input="calculate()" min="0" placeholder="e.g. 500">
+      </div>
+    </div>
+    <div class="field">
+      <label for="num-requests">Number of requests per month</label>
+      <input type="number" id="num-requests" x-model.number="numRequests" @input="calculate()" min="1" placeholder="e.g. 10000">
+    </div>
+
+    <template x-if="results.length > 0">
+      <div>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Provider</th>
+              <th>Per Request</th>
+              <th>Monthly Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="r in results" :key="r.model">
+              <tr :class="r.highlight ? 'highlight' : ''">
+                <td>
+                  <span x-text="r.model"></span>
+                  <span x-show="r.badge" class="badge" x-text="r.badge"></span>
+                </td>
+                <td x-text="r.provider"></td>
+                <td class="cost" x-text="'$' + r.perRequest"></td>
+                <td class="cost" x-text="'$' + r.monthly"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+        <p style="font-size:.8rem;color:var(--color-muted);margin-top:.75rem">
+          Prices as of mid-2026. Always verify current pricing at provider docs. Cached input tokens may be cheaper.
+        </p>
+      </div>
+    </template>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="faq">
+    <h2>How is AI API cost calculated?</h2>
+    <p>AI APIs charge separately for input tokens (your prompt) and output tokens (the model's response), both measured per 1 million tokens. Cost = (input_tokens × input_rate) + (output_tokens × output_rate). Multiply by request count for total spend.</p>
+
+    <h2>Which model is the cheapest for high-volume use?</h2>
+    <p>For high request volumes (100K+/month), Gemini 2.0 Flash and GPT-4o mini are typically the most cost-effective. Claude Haiku 4.5 is also very competitive. The right choice depends on your quality requirements — test outputs before optimizing purely for cost.</p>
+
+    <h2>What are cached input tokens?</h2>
+    <p>Many providers offer prompt caching, where repeated portions of your system prompt are cached and billed at a lower rate (typically 25–50% of normal input cost). This is useful when you have a long system prompt sent with every request.</p>
+
+    <h2>Does context window size affect cost?</h2>
+    <p>Context window size affects the maximum tokens you <em>can</em> send, not the base rate. However, some models (like Gemini 2.5 Pro) have tiered pricing where prompts over 200K tokens are billed at a higher rate.</p>
+
+    <h2>How much does it cost to run GPT-4o for a customer support bot?</h2>
+    <p>A typical customer support message might be 500 input tokens + 200 output tokens. At GPT-4o rates ($2.50 in / $10.00 out per 1M), that's $0.00125 + $0.002 = $0.00325 per conversation. At 10,000 conversations/month: ~$32.50/month.</p>
+
+    <h2>What is the difference between input and output pricing?</h2>
+    <p>Output tokens are typically 3–5× more expensive than input tokens because generating text requires more compute than reading it. Always factor this into your cost estimates, especially for long-form generation tasks.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<footer>
+  <p>&copy; 2026 AITokenTools.com &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+</footer>
+
+<script>
+function costCalc() {
+  const models = [
+    { model: 'GPT-4o',          provider: 'OpenAI',     inputPer1M: 2.50,  outputPer1M: 10.00 },
+    { model: 'GPT-4o mini',     provider: 'OpenAI',     inputPer1M: 0.15,  outputPer1M: 0.60,  badge: 'budget' },
+    { model: 'GPT-4.1',         provider: 'OpenAI',     inputPer1M: 2.00,  outputPer1M: 8.00  },
+    { model: 'o3',              provider: 'OpenAI',     inputPer1M: 10.00, outputPer1M: 40.00, badge: 'reasoning' },
+    { model: 'o4-mini',         provider: 'OpenAI',     inputPer1M: 1.10,  outputPer1M: 4.40,  badge: 'reasoning' },
+    { model: 'Claude Opus 4.7', provider: 'Anthropic',  inputPer1M: 15.00, outputPer1M: 75.00 },
+    { model: 'Claude Sonnet 4.6', provider: 'Anthropic',inputPer1M: 3.00,  outputPer1M: 15.00 },
+    { model: 'Claude Haiku 4.5',  provider: 'Anthropic',inputPer1M: 0.80,  outputPer1M: 4.00,  badge: 'budget' },
+    { model: 'Gemini 2.5 Pro',  provider: 'Google',     inputPer1M: 1.25,  outputPer1M: 10.00 },
+    { model: 'Gemini 2.5 Flash',provider: 'Google',     inputPer1M: 0.30,  outputPer1M: 2.50,  badge: 'budget' },
+    { model: 'Gemini 2.0 Flash',provider: 'Google',     inputPer1M: 0.10,  outputPer1M: 0.40,  badge: 'budget' },
+  ];
+
+  return {
+    inputTokens: 1000,
+    outputTokens: 500,
+    numRequests: 10000,
+    results: [],
+
+    init() { this.calculate(); },
+
+    calculate() {
+      const inp = Number(this.inputTokens) || 0;
+      const out = Number(this.outputTokens) || 0;
+      const n   = Number(this.numRequests)  || 1;
+
+      this.results = models.map(m => {
+        const perReq = (inp / 1e6) * m.inputPer1M + (out / 1e6) * m.outputPer1M;
+        const monthly = perReq * n;
+        return {
+          model: m.model, provider: m.provider, badge: m.badge || null,
+          perRequest: perReq < 0.001 ? perReq.toFixed(6) : perReq.toFixed(4),
+          monthly: monthly < 0.01 ? monthly.toFixed(4) : monthly.toFixed(2),
+          monthlyRaw: monthly,
+        };
+      }).sort((a, b) => a.monthlyRaw - b.monthlyRaw);
+    }
+  };
+}
+</script>
+</body>
+</html>

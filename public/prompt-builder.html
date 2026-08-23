@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI System Prompt Builder – Create Prompts for Claude, GPT-4o & Gemini</title>
+  <meta name="description" content="Build structured AI system prompts for Claude, GPT-4o, and Gemini. Fill in role, context, and instructions — get a ready-to-use prompt instantly.">
+  <link rel="canonical" href="https://aitokentools.com/prompt-builder.html">
+  <meta property="og:title" content="AI System Prompt Builder – Claude, GPT-4o & Gemini">
+  <meta property="og:description" content="Build structured AI system prompts visually. Fill in the sections and copy a ready-to-use prompt for any model.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/prompt-builder.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI System Prompt Builder",
+    "description": "Build structured system prompts for Claude, GPT-4o, and Gemini visually.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    :root {
+      --color-bg: #ffffff; --color-surface: #f8f9fa; --color-border: #e9ecef;
+      --color-text: #212529; --color-muted: #6c757d; --color-accent: #0d6efd;
+      --color-accent-hover: #0b5ed7; --color-success: #198754;
+      --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,.1);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --max-width: 820px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); color: var(--color-text); background: var(--color-bg); line-height: 1.5; }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    nav { border-bottom: 1px solid var(--color-border); background: #fff; position: sticky; top: 0; z-index: 10; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: .75rem 1rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--color-text); }
+    .nav-inner a { font-size: .9rem; color: var(--color-muted); }
+    .nav-inner a.active, .nav-inner a:hover { color: var(--color-accent); text-decoration: none; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1rem; }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
+    .subtitle { color: var(--color-muted); margin-bottom: 1.5rem; }
+
+    .builder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 640px) { .builder-grid { grid-template-columns: 1fr; } }
+
+    .panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
+    .panel-title { font-weight: 700; font-size: 1rem; margin-bottom: 1rem; }
+
+    .field { margin-bottom: .875rem; }
+    label { display: block; font-weight: 500; margin-bottom: .2rem; font-size: .85rem; }
+    .label-hint { font-size: .75rem; color: var(--color-muted); font-weight: 400; margin-left: .35rem; }
+    input[type="text"], select, textarea {
+      width: 100%; padding: .45rem .7rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); font-size: .9rem; font-family: var(--font);
+      background: #fff; color: var(--color-text);
+    }
+    input[type="text"]:focus, select:focus, textarea:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
+    textarea { resize: vertical; min-height: 70px; }
+
+    .model-tabs { display: flex; gap: .4rem; margin-bottom: 1rem; }
+    .model-tab {
+      padding: .3rem .75rem; border: 1px solid var(--color-border); border-radius: 20px;
+      font-size: .8rem; cursor: pointer; background: #fff; color: var(--color-muted);
+    }
+    .model-tab.active { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
+
+    .output-box {
+      background: #1e1e2e; color: #cdd6f4; border-radius: var(--radius);
+      padding: 1rem; font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: .82rem; white-space: pre-wrap; word-break: break-word;
+      min-height: 200px; max-height: 480px; overflow-y: auto; line-height: 1.6;
+    }
+    .xml-tag  { color: #89b4fa; }
+    .xml-attr { color: #a6e3a1; }
+    .section-header { color: #f38ba8; font-weight: 700; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .4rem; padding: .5rem 1rem;
+      background: var(--color-accent); color: #fff; border: none; border-radius: var(--radius);
+      font-size: .9rem; font-weight: 500; cursor: pointer;
+    }
+    .btn:hover { background: var(--color-accent-hover); }
+    .btn-sm { padding: .35rem .75rem; font-size: .82rem; }
+    .btn-ghost { background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border); }
+    .btn-ghost:hover { background: var(--color-border); }
+    .btn-row { display: flex; gap: .5rem; margin-top: .75rem; align-items: center; flex-wrap: wrap; }
+    .copy-confirm { font-size: .8rem; color: var(--color-success); }
+
+    .token-info { font-size: .8rem; color: var(--color-muted); margin-top: .5rem; }
+
+    .ad-slot { background: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius); padding: 1.5rem; text-align: center; color: var(--color-muted); font-size: .875rem; margin: 2rem 0; }
+    .faq { margin-top: 2.5rem; }
+    .faq h2 { font-size: 1.1rem; margin: 1.5rem 0 .4rem; }
+    .faq p { color: var(--color-muted); line-height: 1.7; font-size: .95rem; }
+    footer { border-top: 1px solid var(--color-border); padding: 1.5rem 1rem; text-align: center; font-size: .85rem; color: var(--color-muted); margin-top: 3rem; }
+    footer a { color: var(--color-muted); }
+
+    .templates { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .tmpl-btn { padding: .3rem .75rem; border: 1px solid var(--color-border); border-radius: var(--radius); font-size: .8rem; cursor: pointer; background: #fff; color: var(--color-text); }
+    .tmpl-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">AITokenTools</span>
+    <a href="/">Token Counter</a>
+    <a href="/cost-calculator.html">Cost Calculator</a>
+    <a href="/model-comparison.html">Model Comparison</a>
+    <a href="/prompt-builder.html" class="active">Prompt Builder</a>
+  </div>
+</nav>
+
+<div class="container" x-data="promptBuilder()">
+  <h1>AI System Prompt Builder</h1>
+  <p class="subtitle">Fill in the sections and get a ready-to-use system prompt formatted for your model.</p>
+
+  <div class="templates">
+    <span style="font-size:.85rem;color:var(--color-muted);align-self:center;">Quick templates:</span>
+    <button class="tmpl-btn" @click="loadTemplate('assistant')">Customer Assistant</button>
+    <button class="tmpl-btn" @click="loadTemplate('coder')">Code Helper</button>
+    <button class="tmpl-btn" @click="loadTemplate('analyst')">Data Analyst</button>
+    <button class="tmpl-btn" @click="loadTemplate('writer')">Content Writer</button>
+  </div>
+
+  <div class="builder-grid">
+    <!-- Left: inputs -->
+    <div>
+      <div class="panel">
+        <div class="panel-title">Build Your Prompt</div>
+
+        <div class="model-tabs">
+          <button class="model-tab" :class="model==='claude'?'active':''" @click="model='claude'; render()">Claude</button>
+          <button class="model-tab" :class="model==='gpt'?'active':''" @click="model='gpt'; render()">GPT-4o</button>
+          <button class="model-tab" :class="model==='gemini'?'active':''" @click="model='gemini'; render()">Gemini</button>
+        </div>
+
+        <div class="field">
+          <label>Role <span class="label-hint">Who is the AI?</span></label>
+          <input type="text" x-model="fields.role" @input="render()" placeholder="e.g. a helpful customer support agent for Acme Corp">
+        </div>
+        <div class="field">
+          <label>Context <span class="label-hint">Background info</span></label>
+          <textarea x-model="fields.context" @input="render()" placeholder="e.g. Acme Corp sells B2B software. Users are technical professionals."></textarea>
+        </div>
+        <div class="field">
+          <label>Task / Goal <span class="label-hint">What should it do?</span></label>
+          <textarea x-model="fields.task" @input="render()" placeholder="e.g. Answer questions about the product, troubleshoot issues, escalate billing questions to a human."></textarea>
+        </div>
+        <div class="field">
+          <label>Output Format <span class="label-hint">How should it respond?</span></label>
+          <input type="text" x-model="fields.format" @input="render()" placeholder="e.g. Concise, plain text. No markdown. Under 3 sentences when possible.">
+        </div>
+        <div class="field">
+          <label>Constraints <span class="label-hint">What to avoid</span></label>
+          <textarea x-model="fields.constraints" @input="render()" placeholder="e.g. Never discuss competitors. Don't give legal or medical advice. Stay on topic."></textarea>
+        </div>
+        <div class="field">
+          <label>Tone</label>
+          <select x-model="fields.tone" @change="render()">
+            <option value="">— none specified —</option>
+            <option>Professional and concise</option>
+            <option>Friendly and conversational</option>
+            <option>Formal and precise</option>
+            <option>Enthusiastic and encouraging</option>
+            <option>Neutral and factual</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: output -->
+    <div>
+      <div class="panel">
+        <div class="panel-title">Generated Prompt</div>
+        <div class="output-box" x-html="renderedHTML"></div>
+        <div class="token-info">~<span x-text="tokenEstimate"></span> tokens</div>
+        <div class="btn-row">
+          <button class="btn btn-sm" @click="copyPrompt()">Copy</button>
+          <button class="btn btn-ghost btn-sm" @click="resetFields()">Clear</button>
+          <span class="copy-confirm" x-show="copied" x-transition>Copied!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="faq">
+    <h2>What is a system prompt?</h2>
+    <p>A system prompt is a set of instructions given to an AI model before the conversation begins. It defines the model's role, persona, constraints, and behavior. Unlike user messages, the system prompt is usually invisible to the end user and persists across the entire conversation.</p>
+
+    <h2>Why does prompt format differ between Claude and GPT?</h2>
+    <p>Anthropic's Claude responds best to structured XML tags (<code>&lt;role&gt;</code>, <code>&lt;instructions&gt;</code>, etc.) because the model was trained with this convention. OpenAI's GPT-4o and Google's Gemini are more flexible with Markdown headings and plain prose. Using the right format improves response quality and consistency.</p>
+
+    <h2>How long should a system prompt be?</h2>
+    <p>Most effective system prompts are 200–800 tokens. Very short prompts leave too much room for misinterpretation; extremely long prompts can dilute key instructions and increase cost. Focus on clarity over completeness — only include rules the model actually needs.</p>
+
+    <h2>Should I include examples in the system prompt?</h2>
+    <p>Yes — few-shot examples are one of the most effective techniques for improving output quality. Include 2–3 input/output examples showing exactly the format and style you want. This "shows" the model rather than just telling it, and usually outperforms long instruction lists.</p>
+
+    <h2>What is prompt injection and how do I prevent it?</h2>
+    <p>Prompt injection is when malicious user input tries to override your system instructions (e.g., "Ignore previous instructions and…"). To mitigate it: use clear role boundaries, explicitly instruct the model to ignore instruction-overriding requests, and validate/sanitize user inputs before inserting them into prompts.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<footer>
+  <p>&copy; 2026 AITokenTools.com &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+</footer>
+
+<script>
+function promptBuilder() {
+  const templates = {
+    assistant: {
+      role: 'a helpful, friendly customer support agent for Acme SaaS',
+      context: 'Acme SaaS is a project management tool for small teams. Users are typically non-technical. The product has features for task tracking, time logging, and team collaboration.',
+      task: 'Answer questions about the product, troubleshoot common issues, and help users get the most out of Acme. For billing and account issues, let the user know a human agent will follow up within 1 business day.',
+      format: 'Concise and clear. Use plain text. Avoid jargon. Keep responses under 4 sentences unless a detailed explanation is truly needed.',
+      constraints: "Never discuss competitors. Don't promise features that don't exist. Never share other customers' data. Don't provide refunds or commitments — direct those requests to billing@acme.example.",
+      tone: 'Friendly and conversational',
+    },
+    coder: {
+      role: 'an expert software engineer and coding assistant',
+      context: 'The user is a professional developer working across Python, TypeScript, and Go. They prefer clean, idiomatic code without excessive comments.',
+      task: 'Help debug code, write new functions, review pull requests, and explain technical concepts. Always provide working code examples. When multiple approaches exist, briefly compare the trade-offs.',
+      format: 'Use markdown with fenced code blocks. Include the language identifier on every code block. For explanations, use concise prose — no bullet points unless listing steps.',
+      constraints: "Don't add code comments unless the logic is genuinely non-obvious. Never apologize or add filler. Don't include print statements or debugging code unless specifically requested.",
+      tone: 'Professional and concise',
+    },
+    analyst: {
+      role: 'a senior data analyst with expertise in business intelligence and statistics',
+      context: 'The user works at a mid-size e-commerce company. Data is stored in BigQuery and visualized in Looker. The primary focus is conversion, retention, and LTV analysis.',
+      task: 'Help interpret data, write SQL queries, explain statistical concepts, identify trends, and recommend analysis approaches. Provide SQL in BigQuery dialect when writing queries.',
+      format: 'Lead with the key insight, then provide supporting detail. Use tables for comparisons. Code blocks for SQL.',
+      constraints: "Don't make causal claims from correlational data. Always note when sample sizes are too small to draw conclusions. Avoid jargon unless it's standard in data science.",
+      tone: 'Professional and concise',
+    },
+    writer: {
+      role: 'a skilled content writer and editor specializing in B2B SaaS marketing',
+      context: 'The user creates blog posts, email campaigns, and LinkedIn content for a productivity software company. Target audience: operations managers and startup founders.',
+      task: "Draft, edit, and improve written content. Match the brand voice: clear, direct, and slightly opinionated. Help with headlines, hooks, CTAs, and structure. When editing, explain the key changes you made and why.",
+      format: 'Prose for drafts. Use headers to organize long content. Provide 3 headline options when asked for a headline.',
+      constraints: "Avoid buzzwords like 'leverage', 'synergy', 'robust', 'seamless'. No passive voice. No filler sentences. Don't start paragraphs with 'In conclusion' or 'In summary'.",
+      tone: 'Professional and concise',
+    },
+  };
+
+  return {
+    model: 'claude',
+    fields: { role: '', context: '', task: '', format: '', constraints: '', tone: '' },
+    renderedHTML: '',
+    plainText: '',
+    tokenEstimate: 0,
+    copied: false,
+
+    init() { this.render(); },
+
+    loadTemplate(key) {
+      this.fields = { ...templates[key] };
+      this.render();
+    },
+
+    resetFields() {
+      this.fields = { role: '', context: '', task: '', format: '', constraints: '', tone: '' };
+      this.render();
+    },
+
+    render() {
+      const f = this.fields;
+      const has = k => f[k] && f[k].trim();
+      let plain = '';
+      let html  = '';
+
+      if (this.model === 'claude') {
+        plain += '<system>\n';
+        html  += '<span class="xml-tag">&lt;system&gt;</span>\n';
+
+        if (has('role')) {
+          plain += `<role>\nYou are ${f.role}.\n</role>\n\n`;
+          html  += `<span class="xml-tag">&lt;role&gt;</span>\nYou are ${esc(f.role)}.\n<span class="xml-tag">&lt;/role&gt;</span>\n\n`;
+        }
+        if (has('context')) {
+          plain += `<context>\n${f.context.trim()}\n</context>\n\n`;
+          html  += `<span class="xml-tag">&lt;context&gt;</span>\n${esc(f.context.trim())}\n<span class="xml-tag">&lt;/context&gt;</span>\n\n`;
+        }
+        if (has('task')) {
+          plain += `<task>\n${f.task.trim()}\n</task>\n\n`;
+          html  += `<span class="xml-tag">&lt;task&gt;</span>\n${esc(f.task.trim())}\n<span class="xml-tag">&lt;/task&gt;</span>\n\n`;
+        }
+        if (has('format')) {
+          plain += `<output_format>\n${f.format.trim()}\n</output_format>\n\n`;
+          html  += `<span class="xml-tag">&lt;output_format&gt;</span>\n${esc(f.format.trim())}\n<span class="xml-tag">&lt;/output_format&gt;</span>\n\n`;
+        }
+        if (has('constraints') || has('tone')) {
+          plain += `<constraints>\n`;
+          html  += `<span class="xml-tag">&lt;constraints&gt;</span>\n`;
+          if (has('constraints')) { plain += `${f.constraints.trim()}\n`; html += `${esc(f.constraints.trim())}\n`; }
+          if (has('tone')) { plain += `Tone: ${f.tone}\n`; html += `Tone: ${esc(f.tone)}\n`; }
+          plain += `</constraints>\n`;
+          html  += `<span class="xml-tag">&lt;/constraints&gt;</span>\n`;
+        }
+
+        plain += '</system>';
+        html  += '<span class="xml-tag">&lt;/system&gt;</span>';
+
+      } else if (this.model === 'gpt') {
+        const lines = [];
+        const hlines = [];
+        if (has('role')) { lines.push(`# Role\nYou are ${f.role}.`); hlines.push(`<span class="section-header"># Role</span>\nYou are ${esc(f.role)}.`); }
+        if (has('context')) { lines.push(`# Context\n${f.context.trim()}`); hlines.push(`<span class="section-header"># Context</span>\n${esc(f.context.trim())}`); }
+        if (has('task')) { lines.push(`# Task\n${f.task.trim()}`); hlines.push(`<span class="section-header"># Task</span>\n${esc(f.task.trim())}`); }
+        if (has('format')) { lines.push(`# Output Format\n${f.format.trim()}`); hlines.push(`<span class="section-header"># Output Format</span>\n${esc(f.format.trim())}`); }
+        const constraints = [has('constraints') ? f.constraints.trim() : '', has('tone') ? `Tone: ${f.tone}` : ''].filter(Boolean).join('\n');
+        if (constraints) { lines.push(`# Constraints\n${constraints}`); hlines.push(`<span class="section-header"># Constraints</span>\n${esc(constraints)}`); }
+        plain = lines.join('\n\n');
+        html  = hlines.join('\n\n');
+
+      } else {
+        // Gemini — plain prose
+        const parts = [];
+        const hparts = [];
+        if (has('role')) { parts.push(`You are ${f.role}.`); hparts.push(`You are ${esc(f.role)}.`); }
+        if (has('context')) { parts.push(f.context.trim()); hparts.push(esc(f.context.trim())); }
+        if (has('task')) { parts.push(f.task.trim()); hparts.push(esc(f.task.trim())); }
+        if (has('format')) { parts.push(`Response format: ${f.format.trim()}`); hparts.push(`Response format: ${esc(f.format.trim())}`); }
+        const c = [has('constraints') ? f.constraints.trim() : '', has('tone') ? `Tone: ${f.tone}` : ''].filter(Boolean).join(' ');
+        if (c) { parts.push(c); hparts.push(esc(c)); }
+        plain = parts.join('\n\n');
+        html  = hparts.join('\n\n');
+      }
+
+      this.plainText = plain;
+      this.renderedHTML = html || '<span style="color:#585b70">Fill in the fields on the left to generate your prompt…</span>';
+      this.tokenEstimate = Math.round(plain.length / 4);
+    },
+
+    async copyPrompt() {
+      if (!this.plainText) return;
+      try {
+        await navigator.clipboard.writeText(this.plainText);
+        this.copied = true;
+        setTimeout(() => { this.copied = false; }, 2000);
+      } catch(e) {
+        const el = document.createElement('textarea');
+        el.value = this.plainText;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        this.copied = true;
+        setTimeout(() => { this.copied = false; }, 2000);
+      }
+    }
+  };
+}
+
+function esc(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>

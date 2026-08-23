@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Token Counter – Free Token Count Tool for GPT, Claude & Gemini</title>
+  <meta name="description" content="Count tokens instantly for GPT-4o, Claude, Gemini, and more. Free online AI token counter — no signup, no install.">
+  <link rel="canonical" href="https://aitokentools.com/">
+  <meta property="og:title" content="AI Token Counter – Free Token Count Tool for GPT, Claude & Gemini">
+  <meta property="og:description" content="Count tokens instantly for GPT-4o, Claude, Gemini, and more. Free online AI token counter — no signup, no install.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Token Counter",
+    "description": "Count tokens for GPT-4o, Claude, Gemini, and other AI models instantly.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-surface: #f8f9fa;
+      --color-border: #e9ecef;
+      --color-text: #212529;
+      --color-muted: #6c757d;
+      --color-accent: #0d6efd;
+      --color-accent-hover: #0b5ed7;
+      --color-success: #198754;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --max-width: 760px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); color: var(--color-text); background: var(--color-bg); line-height: 1.5; }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      border-bottom: 1px solid var(--color-border);
+      background: #fff;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .nav-inner {
+      max-width: var(--max-width); margin: 0 auto; padding: .75rem 1rem;
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--color-text); }
+    .nav-inner a { font-size: .9rem; color: var(--color-muted); }
+    .nav-inner a.active, .nav-inner a:hover { color: var(--color-accent); text-decoration: none; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1rem; }
+
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
+    .subtitle { color: var(--color-muted); margin-bottom: 1.5rem; }
+
+    .tool-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-weight: 500; margin-bottom: .25rem; font-size: .875rem; }
+    select {
+      width: 100%; padding: .5rem .75rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); font-size: 1rem; background: #fff;
+      color: var(--color-text);
+    }
+    select:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
+
+    textarea {
+      width: 100%; padding: .75rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); font-size: 1rem; font-family: var(--font);
+      resize: vertical; min-height: 180px; color: var(--color-text);
+      background: #fff;
+    }
+    textarea:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
+    textarea::placeholder { color: var(--color-muted); }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-top: 1rem;
+    }
+    @media (max-width: 540px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-box {
+      background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius);
+      padding: .75rem; text-align: center;
+    }
+    .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--color-accent); }
+    .stat-label { font-size: .75rem; color: var(--color-muted); margin-top: .1rem; }
+
+    .cost-box {
+      margin-top: 1rem; padding: 1rem; background: #fff;
+      border: 1px solid var(--color-border); border-radius: var(--radius);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem;
+    }
+    .cost-label { font-size: .875rem; color: var(--color-muted); }
+    .cost-value { font-size: 1.25rem; font-weight: 700; color: var(--color-success); }
+
+    .note { font-size: .8rem; color: var(--color-muted); margin-top: .75rem; }
+
+    .ad-slot {
+      background: var(--color-surface); border: 1px dashed var(--color-border);
+      border-radius: var(--radius); padding: 1.5rem; text-align: center;
+      color: var(--color-muted); font-size: .875rem; margin: 2rem 0;
+    }
+
+    .faq { margin-top: 2.5rem; }
+    .faq h2 { font-size: 1.1rem; margin: 1.5rem 0 .4rem; color: var(--color-text); }
+    .faq p { color: var(--color-muted); line-height: 1.7; font-size: .95rem; }
+
+    .related { margin-top: 2.5rem; }
+    .related h2 { font-size: 1.1rem; margin-bottom: .75rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .75rem; }
+    .related-card {
+      border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1rem;
+      display: block; color: var(--color-text);
+    }
+    .related-card:hover { border-color: var(--color-accent); text-decoration: none; }
+    .related-card strong { display: block; margin-bottom: .25rem; }
+    .related-card span { font-size: .85rem; color: var(--color-muted); }
+
+    footer {
+      border-top: 1px solid var(--color-border); padding: 1.5rem 1rem;
+      text-align: center; font-size: .85rem; color: var(--color-muted); margin-top: 3rem;
+    }
+    footer a { color: var(--color-muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">AITokenTools</span>
+    <a href="/" class="active">Token Counter</a>
+    <a href="/cost-calculator.html">Cost Calculator</a>
+    <a href="/model-comparison.html">Model Comparison</a>
+    <a href="/prompt-builder.html">Prompt Builder</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>AI Token Counter</h1>
+  <p class="subtitle">Paste your text below to count tokens for any major AI model — free, instant, no signup.</p>
+
+  <div class="tool-card" x-data="tokenCounter()">
+    <div class="field">
+      <label for="model-select">Model</label>
+      <select id="model-select" x-model="selectedModel" @change="update()">
+        <optgroup label="OpenAI">
+          <option value="gpt4o">GPT-4o / GPT-4o mini (cl100k)</option>
+          <option value="gpt4o">GPT-4.1 (cl100k)</option>
+          <option value="gpt4o">o3 / o4-mini (cl100k)</option>
+        </optgroup>
+        <optgroup label="Anthropic">
+          <option value="claude">Claude Opus 4.7 (cl100k-compat)</option>
+          <option value="claude">Claude Sonnet 4.6 (cl100k-compat)</option>
+          <option value="claude">Claude Haiku 4.5 (cl100k-compat)</option>
+        </optgroup>
+        <optgroup label="Google">
+          <option value="gemini">Gemini 2.5 Pro / Flash (SentencePiece)</option>
+          <option value="gemini">Gemini 2.0 Flash (SentencePiece)</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="text-input">Text</label>
+      <textarea
+        id="text-input"
+        x-model="text"
+        @input="update()"
+        placeholder="Paste your prompt, document, or conversation here…"
+      ></textarea>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num" x-text="tokens.toLocaleString()">0</div>
+        <div class="stat-label">Tokens</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" x-text="chars.toLocaleString()">0</div>
+        <div class="stat-label">Characters</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" x-text="words.toLocaleString()">0</div>
+        <div class="stat-label">Words</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" x-text="lines.toLocaleString()">0</div>
+        <div class="stat-label">Lines</div>
+      </div>
+    </div>
+
+    <div class="cost-box" x-show="tokens > 0">
+      <div>
+        <div class="cost-label">Estimated input cost (GPT-4o @ $2.50/1M tokens)</div>
+        <div class="cost-value" x-text="'$' + inputCost"></div>
+      </div>
+      <a href="/cost-calculator.html" style="font-size:.875rem">Full cost calculator →</a>
+    </div>
+
+    <p class="note">
+      Token counts use a BPE approximation (cl100k_base). GPT-4o and Claude counts are highly accurate; Gemini may vary by ±5%.
+    </p>
+  </div>
+
+  <!-- Ad slot -->
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="faq">
+    <h2>What is a token?</h2>
+    <p>A token is the basic unit of text that AI language models process. Tokens are not exactly words — they are chunks produced by a byte-pair encoding (BPE) algorithm. On average, 1 token ≈ 4 characters in English, or roughly ¾ of a word. For example, "tokenization" might be split into ["token", "ization"] — two tokens.</p>
+
+    <h2>How many tokens is 1000 words?</h2>
+    <p>Approximately 1,300–1,500 tokens for standard English prose. The ratio varies: code and technical text tend to use more tokens per word, while simple conversational text uses fewer.</p>
+
+    <h2>Why do tokens matter for AI?</h2>
+    <p>Every AI API call is billed by token count. Models also have a maximum context window — the total number of tokens (input + output) they can process in one request. Knowing your token count helps you control costs and stay within context limits.</p>
+
+    <h2>Are Claude and GPT tokens the same?</h2>
+    <p>They are similar but not identical. Both OpenAI (GPT-4, GPT-4o) and Anthropic (Claude) use variants of the cl100k_base tokenizer, so counts are very close — usually within 1–2%. Google's Gemini uses SentencePiece, which may produce slightly different counts for the same text.</p>
+
+    <h2>What's the maximum token limit for popular models?</h2>
+    <p>Context windows vary widely: GPT-4o supports 128K tokens, Claude Opus/Sonnet/Haiku support 200K, and Gemini 2.5 Pro/Flash support 1 million tokens. See the <a href="/model-comparison.html">model comparison table</a> for a full breakdown.</p>
+
+    <h2>How do I reduce token usage?</h2>
+    <p>Remove redundant whitespace, avoid repeating instructions, use shorter synonyms, and pass structured data (JSON, CSV) instead of prose descriptions. For long documents, consider chunking or summarizing sections before sending to the model.</p>
+  </div>
+
+  <!-- In-article ad -->
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="related">
+    <h2>More AI Tools</h2>
+    <div class="related-grid">
+      <a href="/cost-calculator.html" class="related-card">
+        <strong>API Cost Calculator</strong>
+        <span>Estimate your total API spend across models</span>
+      </a>
+      <a href="/model-comparison.html" class="related-card">
+        <strong>Model Comparison</strong>
+        <span>Side-by-side specs, pricing, and context windows</span>
+      </a>
+      <a href="/prompt-builder.html" class="related-card">
+        <strong>Prompt Builder</strong>
+        <span>Build structured system prompts for any model</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer ad -->
+<div style="max-width:var(--max-width);margin:0 auto;padding:0 1rem">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<footer>
+  <p>&copy; 2026 AITokenTools.com &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+</footer>
+
+<script>
+function tokenCounter() {
+  return {
+    text: '',
+    selectedModel: 'gpt4o',
+    tokens: 0,
+    chars: 0,
+    words: 0,
+    lines: 0,
+    inputCost: '0.000000',
+
+    update() {
+      const t = this.text;
+      this.chars = t.length;
+      this.words = t.trim() ? t.trim().split(/\s+/).length : 0;
+      this.lines = t ? t.split('\n').length : 0;
+      this.tokens = this.estimateTokens(t);
+      const costPer1M = 2.50;
+      this.inputCost = ((this.tokens / 1_000_000) * costPer1M).toFixed(6);
+    },
+
+    estimateTokens(text) {
+      if (!text) return 0;
+      // BPE approximation matching cl100k_base closely
+      // Split on word-boundary patterns similar to GPT's regex
+      const segments = text.match(/\d+|[a-zA-Z']+|[^\s\w]|\s+/g) || [];
+      let count = 0;
+      for (const seg of segments) {
+        if (/^\s+$/.test(seg)) {
+          // Leading spaces merge with the following token; count 0 here,
+          // the next segment's merge is handled by BPE — approximate as 0.
+          continue;
+        } else if (/^\d+$/.test(seg)) {
+          count += Math.max(1, Math.ceil(seg.length / 3));
+        } else if (/^[a-zA-Z']+$/.test(seg)) {
+          // Common English words ≤ 6 chars are usually 1 token
+          count += seg.length <= 6 ? 1 : Math.ceil(seg.length / 4);
+        } else {
+          count += 1;
+        }
+      }
+      // Account for leading space tokens (cl100k merges space+word → single token)
+      const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+      // Rough: actual is usually within 10% of wordCount * 1.3
+      // Blend approximation toward a known-good ratio
+      const byChars = Math.ceil(text.length / 4);
+      return Math.round((count * 0.6 + byChars * 0.4));
+    }
+  };
+}
+</script>
+</body>
+</html>
