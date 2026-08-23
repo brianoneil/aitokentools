@@ -3,56 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy Policy – AITokenTools.com</title>
+  <title>Privacy Policy – AI Token Tools</title>
+  <meta name="description" content="Privacy policy for AI Token Tools. We collect no personal data, use no cookies, and process all tool data client-side in your browser.">
   <link rel="canonical" href="https://aitokentools.com/privacy.html">
+  <meta property="og:title" content="Privacy Policy – AI Token Tools">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/privacy.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
   <style>
-    :root { --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; --max-width: 720px; --color-muted: #6c757d; --color-border: #e9ecef; --color-accent: #0d6efd; }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font); color: #212529; line-height: 1.7; padding: 2rem 1rem; }
-    .container { max-width: var(--max-width); margin: 0 auto; }
-    h1 { font-size: 1.5rem; margin-bottom: .5rem; }
-    h2 { font-size: 1.1rem; margin: 1.75rem 0 .4rem; }
-    p  { margin-bottom: 1rem; color: var(--color-muted); }
-    a  { color: var(--color-accent); }
-    .updated { font-size: .85rem; color: var(--color-muted); margin-bottom: 1.5rem; }
-    footer { border-top: 1px solid var(--color-border); margin-top: 3rem; padding-top: 1rem; font-size: .85rem; color: var(--color-muted); }
+    :root{--bg:#171613;--bg-raised:#1E1C18;--bg-elevated:#252320;--border:#2E2C28;--text:#E1E1E1;--muted:#9D968E;--accent:#FFBA00;--radius:5px;--font-head:'Alumni Sans','Albert Sans',Arial,sans-serif;--font-body:'Albert Sans','Avenir Next','Helvetica Neue',system-ui,sans-serif;--max-width:760px}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent);text-decoration:none}a:hover{opacity:.8}
+    h1,h2,h3{font-family:var(--font-head);line-height:1.1}
+    nav{background:rgba(23,22,19,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+    .nav-inner{max-width:960px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;height:56px;gap:1rem}
+    .nav-brand{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;margin-right:auto}
+    .nav-links{display:flex;align-items:center;gap:1.25rem;list-style:none}
+    .nav-links a{font-size:.83rem;font-weight:500;color:var(--muted);transition:color .15s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--muted);padding:.25rem}
+    @media(max-width:680px){.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:#1A1916;border-bottom:1px solid var(--border);flex-direction:column;padding:1rem 1.25rem;gap:.875rem}.nav-links.open{display:flex}.nav-hamburger{display:flex}}
+    .container{max-width:var(--max-width);margin:0 auto;padding:3rem 1.25rem 4rem}
+    .page-header{padding-bottom:2rem;margin-bottom:2.5rem;border-bottom:1px solid var(--border)}
+    .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+    .page-header h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:.5rem}
+    .page-header .updated{font-size:.82rem;color:var(--muted)}
+    .prose h2{font-family:var(--font-head);font-size:1.3rem;font-weight:700;color:var(--text);margin:2rem 0 .75rem}
+    .prose p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+    .prose ul{padding-left:1.25rem;margin:.5rem 0 1rem;color:var(--muted);font-size:.9rem;line-height:1.8}
+    .prose a{color:var(--accent)}
+    .prose strong{color:var(--text);font-weight:600}
+    footer{border-top:1px solid var(--border);padding:2rem 1.25rem;text-align:center}
+    .footer-inner{max-width:960px;margin:0 auto}
+    .footer-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
+    .footer-links a{font-size:.8rem;color:var(--muted)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-copy{font-size:.78rem;color:var(--muted)}
   </style>
 </head>
-<body>
+<body x-data="{ menuOpen: false }">
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">AITokenTools</a>
+    <button class="nav-hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
+    </button>
+    <ul class="nav-links" :class="menuOpen ? 'open' : ''">
+      <li><a href="/">Home</a></li>
+      <li><a href="/token-counter.html">Token Counter</a></li>
+      <li><a href="/cost-calculator.html">Cost Calc</a></li>
+      <li><a href="/model-comparison.html">Compare</a></li>
+      <li><a href="/prompt-builder.html">Prompt Builder</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
-  <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: August 2026</p>
+  <div class="page-header">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: August 23, 2026</p>
+  </div>
 
-  <h2>Overview</h2>
-  <p>AITokenTools.com ("we", "our", or "the site") is committed to protecting your privacy. This policy explains what data is collected when you use our tools.</p>
+  <div class="prose">
+    <p>This Privacy Policy describes how AI Token Tools ("we," "us," or "our"), operated through aitokentools.com, handles information when you use our website and tools. Our fundamental commitment: <strong>we do not collect, store, or transmit any personal data from your use of our tools.</strong></p>
 
-  <h2>Data We Do Not Collect</h2>
-  <p>All tools on this site run entirely in your browser. Text you enter into the token counter, cost calculator, or prompt builder is <strong>never sent to our servers</strong>. We have no backend, no user accounts, and no database.</p>
+    <h2>Information We Do Not Collect</h2>
+    <p>When you use our tools — the Token Counter, API Cost Calculator, Model Comparison, or System Prompt Builder — all computation happens entirely in your browser using JavaScript. We do not:</p>
+    <ul>
+      <li>Collect, store, or transmit any text you enter into our tools</li>
+      <li>Use cookies for tracking or advertising purposes</li>
+      <li>Create user accounts or store session data</li>
+      <li>Log IP addresses in association with any tool usage</li>
+      <li>Share any data with third parties for advertising purposes</li>
+    </ul>
 
-  <h2>Analytics</h2>
-  <p>We use Cloudflare Web Analytics to understand aggregate traffic. This is a privacy-friendly analytics service that does not use cookies and does not track individual users across sites. No personally identifiable information is collected.</p>
+    <h2>Analytics (Cloudflare Web Analytics)</h2>
+    <p>We use <strong>Cloudflare Web Analytics</strong> to understand basic traffic patterns — which pages are visited and from which countries, browser types, and devices. Cloudflare Web Analytics is specifically designed to be privacy-friendly:</p>
+    <ul>
+      <li>It does not use cookies of any kind</li>
+      <li>It does not fingerprint individual users</li>
+      <li>It does not collect personally identifiable information</li>
+      <li>It aggregates data at the country level, not by individual IP address</li>
+      <li>Data is processed and retained by Cloudflare in accordance with their privacy policy</li>
+    </ul>
+    <p>You can read Cloudflare's privacy policy at <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>.</p>
 
-  <h2>Advertising</h2>
-  <p>We display ads served by Google AdSense. Google may use cookies to serve ads based on your prior visits to this site or other sites. You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" rel="noopener noreferrer">Google's Ad Settings</a>. We do not have access to any data Google collects for advertising purposes.</p>
+    <h2>Google AdSense</h2>
+    <p>We display advertisements served by <strong>Google AdSense</strong>. Google may use cookies and similar technologies to serve personalized ads based on your browsing history and interests. Google's advertising practices are governed by their own privacy policies.</p>
+    <ul>
+      <li>Google may collect data about your visits to this site and other sites for ad personalization</li>
+      <li>You can opt out of personalized advertising at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a></li>
+      <li>You can learn more about how Google uses data at <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a></li>
+      <li>Our site participates in the IAB TCF (Transparency and Consent Framework) for GDPR compliance in the EU</li>
+    </ul>
 
-  <h2>Cookies</h2>
-  <p>We do not set any first-party cookies. Google AdSense may set cookies as described in their privacy policy. By using this site, you consent to cookies used by our advertising partner.</p>
+    <h2>Contact Form</h2>
+    <p>When you use our <a href="/contact.html">contact form</a>, submitting the form opens your default email client with a pre-filled message. We do not store or process form submissions on our servers. The contact form uses a <code>mailto:</code> link — your message is sent directly from your email client to our inbox. We retain email correspondence only as long as needed to address your inquiry.</p>
 
-  <h2>Third-Party Services</h2>
-  <p>We load Alpine.js from jsDelivr (a CDN) for UI interactivity. CDN providers may collect standard server logs (IP address, timestamp, page requested). We do not share any data with third parties beyond what is inherent in loading these public CDN resources.</p>
+    <h2>Cookies</h2>
+    <p>AI Token Tools itself does not set any cookies. Cookies may be set by third-party services we use:</p>
+    <ul>
+      <li><strong>Google AdSense:</strong> Sets cookies for ad serving and frequency capping. These are Google's cookies and are governed by Google's Cookie Policy.</li>
+      <li><strong>Cloudflare:</strong> May set a <code>__cf_bm</code> cookie for bot management purposes. This is a security cookie, not a tracking cookie, and expires within 30 minutes of your visit.</li>
+    </ul>
+    <p>You can manage cookie preferences through your browser settings. Blocking cookies from Google may affect ad personalization but will not affect the functionality of our tools.</p>
 
-  <h2>Children</h2>
-  <p>This site is not directed to children under 13. We do not knowingly collect information from children.</p>
+    <h2>Children's Privacy</h2>
+    <p>Our services are not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has submitted personal information through our contact form, please contact us at the address below and we will promptly delete it.</p>
 
-  <h2>Changes to This Policy</h2>
-  <p>We may update this policy from time to time. Material changes will be reflected in the "Last updated" date above.</p>
+    <h2>Data Security</h2>
+    <p>Since we do not collect or store personal data through our tools, there is no database of user information to secure. Correspondence sent to us via email is handled with standard email security practices. Our site is served over HTTPS (enforced by Cloudflare) to protect data in transit.</p>
 
-  <h2>Contact</h2>
-  <p>Questions about this policy? Contact us at: <a href="mailto:privacy@aitokentools.com">privacy@aitokentools.com</a></p>
+    <h2>Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page will reflect any changes. We encourage you to review this page periodically. Continued use of the site after any changes constitutes your acceptance of the updated policy.</p>
 
-  <footer>
-    <a href="/">← Back to AITokenTools.com</a>
-  </footer>
+    <h2>Contact</h2>
+    <p>If you have questions about this Privacy Policy or our privacy practices, please contact us via our <a href="/contact.html">contact page</a>. We respond to all privacy-related inquiries within 5 business days.</p>
+  </div>
 </div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/token-counter.html">Token Counter</a>
+      <a href="/cost-calculator.html">Cost Calculator</a>
+      <a href="/model-comparison.html">Model Comparison</a>
+      <a href="/prompt-builder.html">Prompt Builder</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 AITokenTools.com &nbsp;·&nbsp; Free AI developer utilities</div>
+  </div>
+</footer>
 </body>
 </html>

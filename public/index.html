@@ -3,321 +3,423 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Token Counter – Free Token Count Tool for GPT, Claude & Gemini</title>
-  <meta name="description" content="Count tokens instantly for GPT-4o, Claude, Gemini, and more. Free online AI token counter — no signup, no install.">
+  <title>AI Token Tools – Free AI Developer Utilities for GPT, Claude & Gemini</title>
+  <meta name="description" content="Free AI developer tools: count tokens, calculate API costs, compare models, and build system prompts. Instant results, no signup required.">
   <link rel="canonical" href="https://aitokentools.com/">
-  <meta property="og:title" content="AI Token Counter – Free Token Count Tool for GPT, Claude & Gemini">
-  <meta property="og:description" content="Count tokens instantly for GPT-4o, Claude, Gemini, and more. Free online AI token counter — no signup, no install.">
+  <meta property="og:title" content="AI Token Tools – Free AI Developer Utilities">
+  <meta property="og:description" content="Count tokens, calculate API costs, compare models, and build system prompts — free, instant, no signup.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aitokentools.com/">
+  <meta property="og:image" content="https://aitokentools.com/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://aitokentools.com/assets/og.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "AI Token Counter",
-    "description": "Count tokens for GPT-4o, Claude, Gemini, and other AI models instantly.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "@type": "WebSite",
+    "name": "AI Token Tools",
+    "description": "Free AI developer utilities: token counter, API cost calculator, model comparison, and system prompt builder.",
+    "url": "https://aitokentools.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://aitokentools.com/model-comparison.html",
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Albert+Sans:wght@400;500;600&family=Roboto+Mono&display=swap" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
   <style>
     :root {
-      --color-bg: #ffffff;
-      --color-surface: #f8f9fa;
-      --color-border: #e9ecef;
-      --color-text: #212529;
-      --color-muted: #6c757d;
-      --color-accent: #0d6efd;
-      --color-accent-hover: #0b5ed7;
-      --color-success: #198754;
-      --radius: 8px;
-      --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --max-width: 760px;
+      --bg: #171613;
+      --bg-raised: #1E1C18;
+      --bg-elevated: #252320;
+      --border: #2E2C28;
+      --text: #E1E1E1;
+      --muted: #9D968E;
+      --accent: #FFBA00;
+      --accent-dim: rgba(255,186,0,0.10);
+      --accent-hover: #FFC933;
+      --teal: #0FB6AC;
+      --radius: 5px;
+      --font-head: 'Alumni Sans', 'Albert Sans', Arial, sans-serif;
+      --font-body: 'Albert Sans', 'Avenir Next', 'Helvetica Neue', system-ui, sans-serif;
+      --max-width: 900px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.45);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font); color: var(--color-text); background: var(--color-bg); line-height: 1.5; }
-    a { color: var(--color-accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); }
+    h1,h2,h3,h4 { font-family: var(--font-head); line-height: 1.1; }
 
-    nav {
-      border-bottom: 1px solid var(--color-border);
-      background: #fff;
-      position: sticky; top: 0; z-index: 10;
+    /* NAV */
+    nav { background: rgba(23,22,19,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; display: flex; align-items: center; height: 56px; gap: 1rem; }
+    .nav-brand { font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--accent); letter-spacing: -0.01em; margin-right: auto; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 1.25rem; list-style: none; }
+    .nav-links a { font-size: 0.83rem; font-weight: 500; color: var(--muted); letter-spacing: 0.01em; transition: color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--muted); padding: 0.25rem; }
+    @media (max-width: 680px) {
+      .nav-links { display: none; position: absolute; top: 56px; left: 0; right: 0; background: #1A1916; border-bottom: 1px solid var(--border); flex-direction: column; padding: 1rem 1.25rem; gap: 0.875rem; }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
     }
-    .nav-inner {
-      max-width: var(--max-width); margin: 0 auto; padding: .75rem 1rem;
-      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 5rem 1.25rem 4rem;
+      text-align: center;
+      overflow: hidden;
     }
-    .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--color-text); }
-    .nav-inner a { font-size: .9rem; color: var(--color-muted); }
-    .nav-inner a.active, .nav-inner a:hover { color: var(--color-accent); text-decoration: none; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,186,0,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(15,182,172,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(255,186,0,0.25);
+      padding: 0.3rem 0.875rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.0;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.65;
+    }
+    .hero-cta { display: flex; gap: 0.875rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.65rem 1.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; border: none; border-radius: 2px; cursor: pointer; transition: background 0.15s, color 0.15s; text-decoration: none; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #0B0903; }
+    .btn-primary:hover { background: var(--accent-hover); color: #0B0903; }
+    .btn-ghost { background: transparent; color: var(--accent); border: 1px solid rgba(255,186,0,0.35); }
+    .btn-ghost:hover { background: var(--accent-dim); color: var(--accent); }
 
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1rem; }
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--bg-raised);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.25rem;
+    }
+    .stats-bar-inner { max-width: var(--max-width); margin: 0 auto; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 0.1rem; }
 
-    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
-    .subtitle { color: var(--color-muted); margin-bottom: 1.5rem; }
+    /* TOOLS SECTION */
+    .section { max-width: var(--max-width); margin: 0 auto; padding: 4rem 1.25rem; }
+    .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 540px; }
+    .section-header { margin-bottom: 2.5rem; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
 
     .tool-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .tool-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      color: var(--text);
+    }
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(255,186,0,0.2);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.125rem;
+      flex-shrink: 0;
+    }
+    .tool-icon svg { color: var(--accent); }
+    .tool-name {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .tool-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; flex-grow: 1; }
+    .tool-link {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
-    .field { margin-bottom: 1rem; }
-    label { display: block; font-weight: 500; margin-bottom: .25rem; font-size: .875rem; }
-    select {
-      width: 100%; padding: .5rem .75rem; border: 1px solid var(--color-border);
-      border-radius: var(--radius); font-size: 1rem; background: #fff;
-      color: var(--color-text);
+    /* FEATURE HIGHLIGHTS */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
     }
-    select:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
+    @media (max-width: 640px) { .features-grid { grid-template-columns: 1fr; } }
+    .feature-item { padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-raised); }
+    .feature-icon { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .feature-title { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .feature-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
 
-    textarea {
-      width: 100%; padding: .75rem; border: 1px solid var(--color-border);
-      border-radius: var(--radius); font-size: 1rem; font-family: var(--font);
-      resize: vertical; min-height: 180px; color: var(--color-text);
-      background: #fff;
-    }
-    textarea:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
-    textarea::placeholder { color: var(--color-muted); }
+    /* AD SLOT */
+    .ad-slot { background: var(--bg-raised); border: 1px dashed var(--border); border-radius: var(--radius); padding: 1.5rem; text-align: center; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.05em; margin: 0; }
+    .ad-wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem 2rem; }
 
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-top: 1rem;
-    }
-    @media (max-width: 540px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-    .stat-box {
-      background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius);
-      padding: .75rem; text-align: center;
-    }
-    .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--color-accent); }
-    .stat-label { font-size: .75rem; color: var(--color-muted); margin-top: .1rem; }
+    /* FAQ */
+    .faq-section { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem 4rem; }
+    .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+    .faq-item h2 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+    .faq-item a { color: var(--accent); }
 
-    .cost-box {
-      margin-top: 1rem; padding: 1rem; background: #fff;
-      border: 1px solid var(--color-border); border-radius: var(--radius);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem;
-    }
-    .cost-label { font-size: .875rem; color: var(--color-muted); }
-    .cost-value { font-size: 1.25rem; font-weight: 700; color: var(--color-success); }
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 1.25rem; }
+    .footer-inner { max-width: var(--max-width); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-brand { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--accent); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8rem; color: var(--muted); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); width: 100%; text-align: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
-    .note { font-size: .8rem; color: var(--color-muted); margin-top: .75rem; }
-
-    .ad-slot {
-      background: var(--color-surface); border: 1px dashed var(--color-border);
-      border-radius: var(--radius); padding: 1.5rem; text-align: center;
-      color: var(--color-muted); font-size: .875rem; margin: 2rem 0;
-    }
-
-    .faq { margin-top: 2.5rem; }
-    .faq h2 { font-size: 1.1rem; margin: 1.5rem 0 .4rem; color: var(--color-text); }
-    .faq p { color: var(--color-muted); line-height: 1.7; font-size: .95rem; }
-
-    .related { margin-top: 2.5rem; }
-    .related h2 { font-size: 1.1rem; margin-bottom: .75rem; }
-    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .75rem; }
-    .related-card {
-      border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1rem;
-      display: block; color: var(--color-text);
-    }
-    .related-card:hover { border-color: var(--color-accent); text-decoration: none; }
-    .related-card strong { display: block; margin-bottom: .25rem; }
-    .related-card span { font-size: .85rem; color: var(--color-muted); }
-
-    footer {
-      border-top: 1px solid var(--color-border); padding: 1.5rem 1rem;
-      text-align: center; font-size: .85rem; color: var(--color-muted); margin-top: 3rem;
-    }
-    footer a { color: var(--color-muted); }
+    .divider { height: 1px; background: var(--border); }
   </style>
 </head>
-<body>
+<body x-data="{ menuOpen: false }">
 
 <nav>
   <div class="nav-inner">
-    <span class="nav-brand">AITokenTools</span>
-    <a href="/" class="active">Token Counter</a>
-    <a href="/cost-calculator.html">Cost Calculator</a>
-    <a href="/model-comparison.html">Model Comparison</a>
-    <a href="/prompt-builder.html">Prompt Builder</a>
+    <a href="/" class="nav-brand">AITokenTools</a>
+    <button class="nav-hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
+    </button>
+    <ul class="nav-links" :class="menuOpen ? 'open' : ''">
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/token-counter.html">Token Counter</a></li>
+      <li><a href="/cost-calculator.html">Cost Calc</a></li>
+      <li><a href="/model-comparison.html">Compare</a></li>
+      <li><a href="/prompt-builder.html">Prompt Builder</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
   </div>
 </nav>
 
-<div class="container">
-  <h1>AI Token Counter</h1>
-  <p class="subtitle">Paste your text below to count tokens for any major AI model — free, instant, no signup.</p>
-
-  <div class="tool-card" x-data="tokenCounter()">
-    <div class="field">
-      <label for="model-select">Model</label>
-      <select id="model-select" x-model="selectedModel" @change="update()">
-        <optgroup label="OpenAI">
-          <option value="gpt4o">GPT-4o / GPT-4o mini (cl100k)</option>
-          <option value="gpt4o">GPT-4.1 (cl100k)</option>
-          <option value="gpt4o">o3 / o4-mini (cl100k)</option>
-        </optgroup>
-        <optgroup label="Anthropic">
-          <option value="claude">Claude Opus 4.7 (cl100k-compat)</option>
-          <option value="claude">Claude Sonnet 4.6 (cl100k-compat)</option>
-          <option value="claude">Claude Haiku 4.5 (cl100k-compat)</option>
-        </optgroup>
-        <optgroup label="Google">
-          <option value="gemini">Gemini 2.5 Pro / Flash (SentencePiece)</option>
-          <option value="gemini">Gemini 2.0 Flash (SentencePiece)</option>
-        </optgroup>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="text-input">Text</label>
-      <textarea
-        id="text-input"
-        x-model="text"
-        @input="update()"
-        placeholder="Paste your prompt, document, or conversation here…"
-      ></textarea>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-box">
-        <div class="stat-num" x-text="tokens.toLocaleString()">0</div>
-        <div class="stat-label">Tokens</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" x-text="chars.toLocaleString()">0</div>
-        <div class="stat-label">Characters</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" x-text="words.toLocaleString()">0</div>
-        <div class="stat-label">Words</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" x-text="lines.toLocaleString()">0</div>
-        <div class="stat-label">Lines</div>
-      </div>
-    </div>
-
-    <div class="cost-box" x-show="tokens > 0">
-      <div>
-        <div class="cost-label">Estimated input cost (GPT-4o @ $2.50/1M tokens)</div>
-        <div class="cost-value" x-text="'$' + inputCost"></div>
-      </div>
-      <a href="/cost-calculator.html" style="font-size:.875rem">Full cost calculator →</a>
-    </div>
-
-    <p class="note">
-      Token counts use a BPE approximation (cl100k_base). GPT-4o and Claude counts are highly accurate; Gemini may vary by ±5%.
-    </p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Free · No Signup · Instant</div>
+  <h1>AI Developer Tools<br>That <em>Actually Help</em></h1>
+  <p class="hero-sub">Count tokens, calculate API costs, compare models side by side, and craft the perfect system prompt — all in your browser, all free.</p>
+  <div class="hero-cta">
+    <a href="/token-counter.html" class="btn btn-primary">Count Tokens Now</a>
+    <a href="/cost-calculator.html" class="btn btn-ghost">Estimate API Costs</a>
   </div>
+</section>
 
-  <!-- Ad slot -->
-  <div class="ad-slot">Advertisement</div>
-
-  <div class="faq">
-    <h2>What is a token?</h2>
-    <p>A token is the basic unit of text that AI language models process. Tokens are not exactly words — they are chunks produced by a byte-pair encoding (BPE) algorithm. On average, 1 token ≈ 4 characters in English, or roughly ¾ of a word. For example, "tokenization" might be split into ["token", "ization"] — two tokens.</p>
-
-    <h2>How many tokens is 1000 words?</h2>
-    <p>Approximately 1,300–1,500 tokens for standard English prose. The ratio varies: code and technical text tend to use more tokens per word, while simple conversational text uses fewer.</p>
-
-    <h2>Why do tokens matter for AI?</h2>
-    <p>Every AI API call is billed by token count. Models also have a maximum context window — the total number of tokens (input + output) they can process in one request. Knowing your token count helps you control costs and stay within context limits.</p>
-
-    <h2>Are Claude and GPT tokens the same?</h2>
-    <p>They are similar but not identical. Both OpenAI (GPT-4, GPT-4o) and Anthropic (Claude) use variants of the cl100k_base tokenizer, so counts are very close — usually within 1–2%. Google's Gemini uses SentencePiece, which may produce slightly different counts for the same text.</p>
-
-    <h2>What's the maximum token limit for popular models?</h2>
-    <p>Context windows vary widely: GPT-4o supports 128K tokens, Claude Opus/Sonnet/Haiku support 200K, and Gemini 2.5 Pro/Flash support 1 million tokens. See the <a href="/model-comparison.html">model comparison table</a> for a full breakdown.</p>
-
-    <h2>How do I reduce token usage?</h2>
-    <p>Remove redundant whitespace, avoid repeating instructions, use shorter synonyms, and pass structured data (JSON, CSV) instead of prose descriptions. For long documents, consider chunking or summarizing sections before sending to the model.</p>
-  </div>
-
-  <!-- In-article ad -->
-  <div class="ad-slot">Advertisement</div>
-
-  <div class="related">
-    <h2>More AI Tools</h2>
-    <div class="related-grid">
-      <a href="/cost-calculator.html" class="related-card">
-        <strong>API Cost Calculator</strong>
-        <span>Estimate your total API spend across models</span>
-      </a>
-      <a href="/model-comparison.html" class="related-card">
-        <strong>Model Comparison</strong>
-        <span>Side-by-side specs, pricing, and context windows</span>
-      </a>
-      <a href="/prompt-builder.html" class="related-card">
-        <strong>Prompt Builder</strong>
-        <span>Build structured system prompts for any model</span>
-      </a>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Free Tools</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">11+</div>
+      <div class="stat-label">AI Models</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Signups Required</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Client-Side</div>
     </div>
   </div>
 </div>
 
-<!-- Footer ad -->
-<div style="max-width:var(--max-width);margin:0 auto;padding:0 1rem">
+<!-- AD SLOT -->
+<div class="ad-wrap" style="margin-top:2rem;">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<!-- TOOLS -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-label">The Toolkit</div>
+    <h2 class="section-title">Everything You Need<br>to Work Smarter with AI APIs</h2>
+    <p class="section-sub">Practical tools built for developers, prompt engineers, and AI product teams.</p>
+  </div>
+
+  <div class="tools-grid">
+    <a href="/token-counter.html" class="tool-card">
+      <div class="tool-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="tool-name">Token Counter</div>
+      <div class="tool-desc">Paste any text and instantly see how many tokens it uses across GPT-4o, Claude, and Gemini models. Know your token budget before you hit send.</div>
+      <div class="tool-link">Open Tool →</div>
+    </a>
+
+    <a href="/cost-calculator.html" class="tool-card">
+      <div class="tool-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="9" x2="8" y2="18"/><line x1="12" y1="9" x2="12" y2="18"/><line x1="16" y1="9" x2="16" y2="18"/><line x1="2" y1="9" x2="22" y2="9"/></svg>
+      </div>
+      <div class="tool-name">API Cost Calculator</div>
+      <div class="tool-desc">Enter your token counts and monthly request volume to get exact cost breakdowns across every major model. See which model fits your budget before you scale.</div>
+      <div class="tool-link">Open Tool →</div>
+    </a>
+
+    <a href="/model-comparison.html" class="tool-card">
+      <div class="tool-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="tool-name">Model Comparison</div>
+      <div class="tool-desc">Side-by-side specs for GPT-4o, Claude Opus, Gemini 2.5 Pro, and every major model. Context windows, pricing, capabilities — sortable and filterable.</div>
+      <div class="tool-link">Open Tool →</div>
+    </a>
+
+    <a href="/prompt-builder.html" class="tool-card">
+      <div class="tool-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </div>
+      <div class="tool-name">System Prompt Builder</div>
+      <div class="tool-desc">Fill in role, context, tasks, and constraints — get a properly formatted system prompt for Claude (XML tags), GPT-4o (Markdown), or Gemini. Start from 4 ready-made templates.</div>
+      <div class="tool-link">Open Tool →</div>
+    </a>
+  </div>
+</section>
+
+<!-- AD SLOT (in-article) -->
+<div class="ad-wrap">
+  <div class="ad-slot">Advertisement</div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" style="padding-top:2rem;">
+  <div class="section-header">
+    <div class="section-label">Why Use These Tools</div>
+    <h2 class="section-title">Built for the Way<br>Developers Actually Work</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Instant Results</div>
+      <div class="feature-desc">All calculations happen in your browser. No API calls, no waiting, no rate limits. Paste and see results in milliseconds.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Privacy First</div>
+      <div class="feature-desc">Your text never leaves your browser. Nothing is sent to a server. Use it safely with proprietary code and internal documents.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Always Up to Date</div>
+      <div class="feature-desc">Pricing, context windows, and model specs updated as models release. We track OpenAI, Anthropic, and Google model changes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="divider"></div>
+<section class="faq-section" style="padding-top: 3rem;">
+  <div class="section-label" style="margin-bottom: 1.5rem;">Common Questions</div>
+
+  <div class="faq-item">
+    <h2>What is AI Token Tools?</h2>
+    <p>AI Token Tools is a free collection of developer utilities for working with large language model APIs. The suite includes a token counter, API cost calculator, model comparison table, and system prompt builder — all client-side, all free.</p>
+  </div>
+
+  <div class="faq-item">
+    <h2>Do I need an account to use these tools?</h2>
+    <p>No. Every tool runs entirely in your browser using JavaScript. There is no account, no email, no sign-up. Just open the tool and start using it.</p>
+  </div>
+
+  <div class="faq-item">
+    <h2>Which AI models do you support?</h2>
+    <p>All tools support OpenAI (GPT-4o, GPT-4.1, GPT-4o mini, o3, o4-mini), Anthropic (Claude Opus 4.7, Claude Sonnet 4.6, Claude Haiku 4.5), and Google (Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.0 Flash). We update when new models release.</p>
+  </div>
+
+  <div class="faq-item">
+    <h2>How accurate is the token counter?</h2>
+    <p>The <a href="/token-counter.html">token counter</a> uses a BPE approximation that matches cl100k_base (used by GPT-4o and Claude) to within ±5% for most English text. For code and non-English languages, there may be slightly more variance. For exact counts, call the model's API tokenizer directly.</p>
+  </div>
+
+  <div class="faq-item">
+    <h2>Is my text kept private?</h2>
+    <p>Yes. All processing happens in your browser using JavaScript. Your text is never sent to any server by this site. We use Cloudflare Analytics (cookieless, no personal data) for basic traffic metrics only.</p>
+  </div>
+</section>
+
+<!-- FOOTER AD -->
+<div class="ad-wrap">
   <div class="ad-slot">Advertisement</div>
 </div>
 
 <footer>
-  <p>&copy; 2026 AITokenTools.com &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+  <div class="footer-inner">
+    <div class="footer-brand">AITokenTools</div>
+    <nav class="footer-links">
+      <a href="/token-counter.html">Token Counter</a>
+      <a href="/cost-calculator.html">Cost Calculator</a>
+      <a href="/model-comparison.html">Model Comparison</a>
+      <a href="/prompt-builder.html">Prompt Builder</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </nav>
+    <div class="footer-copy">&copy; 2026 AITokenTools.com — Free AI developer utilities. Not affiliated with OpenAI, Anthropic, or Google.</div>
+  </div>
 </footer>
 
-<script>
-function tokenCounter() {
-  return {
-    text: '',
-    selectedModel: 'gpt4o',
-    tokens: 0,
-    chars: 0,
-    words: 0,
-    lines: 0,
-    inputCost: '0.000000',
-
-    update() {
-      const t = this.text;
-      this.chars = t.length;
-      this.words = t.trim() ? t.trim().split(/\s+/).length : 0;
-      this.lines = t ? t.split('\n').length : 0;
-      this.tokens = this.estimateTokens(t);
-      const costPer1M = 2.50;
-      this.inputCost = ((this.tokens / 1_000_000) * costPer1M).toFixed(6);
-    },
-
-    estimateTokens(text) {
-      if (!text) return 0;
-      // BPE approximation matching cl100k_base closely
-      // Split on word-boundary patterns similar to GPT's regex
-      const segments = text.match(/\d+|[a-zA-Z']+|[^\s\w]|\s+/g) || [];
-      let count = 0;
-      for (const seg of segments) {
-        if (/^\s+$/.test(seg)) {
-          // Leading spaces merge with the following token; count 0 here,
-          // the next segment's merge is handled by BPE — approximate as 0.
-          continue;
-        } else if (/^\d+$/.test(seg)) {
-          count += Math.max(1, Math.ceil(seg.length / 3));
-        } else if (/^[a-zA-Z']+$/.test(seg)) {
-          // Common English words ≤ 6 chars are usually 1 token
-          count += seg.length <= 6 ? 1 : Math.ceil(seg.length / 4);
-        } else {
-          count += 1;
-        }
-      }
-      // Account for leading space tokens (cl100k merges space+word → single token)
-      const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
-      // Rough: actual is usually within 10% of wordCount * 1.3
-      // Blend approximation toward a known-good ratio
-      const byChars = Math.ceil(text.length / 4);
-      return Math.round((count * 0.6 + byChars * 0.4));
-    }
-  };
-}
-</script>
 </body>
 </html>

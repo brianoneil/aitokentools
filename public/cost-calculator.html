@@ -3,89 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI API Cost Calculator – Estimate GPT-4o, Claude & Gemini API Costs</title>
-  <meta name="description" content="Calculate your AI API costs across GPT-4o, Claude, Gemini, and more. Enter token counts and see exactly what you'll pay — free, no signup.">
+  <title>AI API Cost Calculator – Estimate GPT-4o, Claude & Gemini API Costs 2026</title>
+  <meta name="description" content="Calculate your AI API costs across GPT-4o, Claude Opus, Gemini 2.5 Pro, and more. Enter token counts and request volume to see exact monthly costs — free, no signup.">
   <link rel="canonical" href="https://aitokentools.com/cost-calculator.html">
-  <meta property="og:title" content="AI API Cost Calculator – Estimate GPT-4o, Claude & Gemini API Costs">
-  <meta property="og:description" content="Calculate your AI API costs across GPT-4o, Claude, Gemini, and more. Enter token counts and see exactly what you'll pay.">
+  <meta property="og:title" content="AI API Cost Calculator – Compare GPT, Claude & Gemini Pricing">
+  <meta property="og:description" content="Calculate exact AI API costs across all major models. Enter tokens and request volume to see monthly cost breakdowns.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aitokentools.com/cost-calculator.html">
+  <meta property="og:image" content="https://aitokentools.com/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "AI API Cost Calculator",
-    "description": "Estimate your AI API costs for GPT-4, Claude, Gemini and other models.",
+    "description": "Estimate your AI API costs for GPT-4o, Claude, Gemini, and other models.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
+    "url": "https://aitokentools.com/cost-calculator.html",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Albert+Sans:wght@400;500;600&family=Roboto+Mono&display=swap" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
   <style>
-    :root {
-      --color-bg: #ffffff; --color-surface: #f8f9fa; --color-border: #e9ecef;
-      --color-text: #212529; --color-muted: #6c757d; --color-accent: #0d6efd;
-      --color-accent-hover: #0b5ed7; --color-success: #198754;
-      --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --max-width: 760px;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font); color: var(--color-text); background: var(--color-bg); line-height: 1.5; }
-    a { color: var(--color-accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    nav { border-bottom: 1px solid var(--color-border); background: #fff; position: sticky; top: 0; z-index: 10; }
-    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: .75rem 1rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-    .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--color-text); }
-    .nav-inner a { font-size: .9rem; color: var(--color-muted); }
-    .nav-inner a.active, .nav-inner a:hover { color: var(--color-accent); text-decoration: none; }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1rem; }
-    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
-    .subtitle { color: var(--color-muted); margin-bottom: 1.5rem; }
-    .tool-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
-    .field { margin-bottom: 1rem; }
-    label { display: block; font-weight: 500; margin-bottom: .25rem; font-size: .875rem; }
-    select, input[type="number"] {
-      width: 100%; padding: .5rem .75rem; border: 1px solid var(--color-border);
-      border-radius: var(--radius); font-size: 1rem; background: #fff; color: var(--color-text);
-    }
-    select:focus, input:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; border-color: transparent; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 480px) { .grid-2 { grid-template-columns: 1fr; } }
-    .result-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; }
-    .result-table th { text-align: left; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-muted); padding: .5rem .75rem; border-bottom: 2px solid var(--color-border); }
-    .result-table td { padding: .6rem .75rem; border-bottom: 1px solid var(--color-border); font-size: .95rem; }
-    .result-table tr:last-child td { border-bottom: none; }
-    .result-table .cost { font-weight: 600; color: var(--color-success); }
-    .result-table .highlight td { background: #f0f9ff; }
-    .total-row td { font-weight: 700; font-size: 1.05rem; background: var(--color-surface); }
-    .ad-slot { background: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius); padding: 1.5rem; text-align: center; color: var(--color-muted); font-size: .875rem; margin: 2rem 0; }
-    .faq { margin-top: 2.5rem; }
-    .faq h2 { font-size: 1.1rem; margin: 1.5rem 0 .4rem; }
-    .faq p { color: var(--color-muted); line-height: 1.7; font-size: .95rem; }
-    footer { border-top: 1px solid var(--color-border); padding: 1.5rem 1rem; text-align: center; font-size: .85rem; color: var(--color-muted); margin-top: 3rem; }
-    footer a { color: var(--color-muted); }
-    .badge { display: inline-block; font-size: .75rem; padding: .1rem .4rem; border-radius: 4px; background: #e7f3ff; color: var(--color-accent); font-weight: 500; }
+    :root{--bg:#171613;--bg-raised:#1E1C18;--bg-elevated:#252320;--border:#2E2C28;--text:#E1E1E1;--muted:#9D968E;--accent:#FFBA00;--accent-dim:rgba(255,186,0,0.10);--accent-hover:#FFC933;--teal:#0FB6AC;--radius:5px;--font-head:'Alumni Sans','Albert Sans',Arial,sans-serif;--font-body:'Albert Sans','Avenir Next','Helvetica Neue',system-ui,sans-serif;--font-mono:'Roboto Mono','JetBrains Mono',monospace;--max-width:900px;--shadow:0 2px 16px rgba(0,0,0,.45)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-hover)}
+    h1,h2,h3{font-family:var(--font-head);line-height:1.1}
+    nav{background:rgba(23,22,19,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+    .nav-inner{max-width:var(--max-width);margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;height:56px;gap:1rem}
+    .nav-brand{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;margin-right:auto;flex-shrink:0}
+    .nav-links{display:flex;align-items:center;gap:1.25rem;list-style:none}
+    .nav-links a{font-size:.83rem;font-weight:500;color:var(--muted);transition:color .15s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-links a.active{color:var(--accent)}
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--muted);padding:.25rem}
+    @media(max-width:680px){.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:#1A1916;border-bottom:1px solid var(--border);flex-direction:column;padding:1rem 1.25rem;gap:.875rem}.nav-links.open{display:flex}.nav-hamburger{display:flex}}
+    .container{max-width:var(--max-width);margin:0 auto;padding:2.5rem 1.25rem}
+    .page-header{padding-bottom:2rem;margin-bottom:2rem;border-bottom:1px solid var(--border)}
+    .page-header h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--text);margin-bottom:.5rem;letter-spacing:-.02em}
+    .subtitle{font-size:1rem;color:var(--muted)}
+    .card{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
+    .field{margin-bottom:1rem}
+    label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+    input[type="number"]{width:100%;padding:.6rem .875rem;background:var(--bg-elevated);border:1px solid var(--border);border-radius:0;color:var(--text);font-family:var(--font-body);font-size:.95rem;outline:none;transition:border-color .15s;-webkit-appearance:none}
+    input[type="number"]:focus{border-color:var(--accent)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:540px){.grid-2{grid-template-columns:1fr}}
+    .result-table{width:100%;border-collapse:collapse;margin-top:1.5rem}
+    .result-table th{text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.5rem .875rem;border-bottom:1px solid var(--border);white-space:nowrap}
+    .result-table td{padding:.65rem .875rem;border-bottom:1px solid var(--border);font-size:.9rem}
+    .result-table tr:last-child td{border-bottom:none}
+    .result-table .cost{font-family:var(--font-head);font-weight:700;color:var(--teal);font-size:1rem}
+    .result-table tr:hover td{background:rgba(255,255,255,.02)}
+    .badge{display:inline-block;font-size:.68rem;padding:.1rem .4rem;border-radius:2px;background:var(--accent-dim);color:var(--accent);font-weight:600;letter-spacing:.04em;margin-left:.35rem;border:1px solid rgba(255,186,0,.2)}
+    .provider-tag{font-size:.72rem;color:var(--muted)}
+    .ad-slot{background:var(--bg-raised);border:1px dashed var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.05em;margin:2rem 0}
+    .faq{margin-top:3rem}
+    .faq-label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+    .faq-item{border-top:1px solid var(--border);padding:1.25rem 0}
+    .faq-item:last-child{border-bottom:1px solid var(--border)}
+    .faq-item h2{font-family:var(--font-head);font-size:1.15rem;font-weight:600;color:var(--text);margin-bottom:.5rem}
+    .faq-item p{font-size:.875rem;color:var(--muted);line-height:1.75}
+    .faq-item a{color:var(--accent)}
+    .related{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .related-label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+    .related-card{display:block;background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:1.125rem 1.25rem;transition:border-color .15s;text-decoration:none}
+    .related-card:hover{border-color:var(--accent)}
+    .related-card strong{display:block;font-family:var(--font-head);font-size:1.05rem;color:var(--text);margin-bottom:.25rem}
+    .related-card span{font-size:.82rem;color:var(--muted)}
+    footer{border-top:1px solid var(--border);padding:2rem 1.25rem;text-align:center}
+    .footer-inner{max-width:var(--max-width);margin:0 auto}
+    .footer-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
+    .footer-links a{font-size:.8rem;color:var(--muted)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-copy{font-size:.78rem;color:var(--muted)}
+    .price-note{font-size:.78rem;color:var(--muted);margin-top:.875rem;line-height:1.6}
+    .summary-box{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-top:1.25rem;display:flex;gap:2rem;flex-wrap:wrap}
+    .summary-item .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.2rem}
+    .summary-item .value{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--accent)}
+    .how-to{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+    .how-to h2{font-family:var(--font-head);font-size:1.2rem;font-weight:600;color:var(--text);margin-bottom:.875rem}
+    .how-to ol{padding-left:1.25rem;color:var(--muted);font-size:.875rem;line-height:1.8}
   </style>
 </head>
-<body>
+<body x-data="{ menuOpen: false }">
 
 <nav>
   <div class="nav-inner">
-    <span class="nav-brand">AITokenTools</span>
-    <a href="/">Token Counter</a>
-    <a href="/cost-calculator.html" class="active">Cost Calculator</a>
-    <a href="/model-comparison.html">Model Comparison</a>
-    <a href="/prompt-builder.html">Prompt Builder</a>
+    <a href="/" class="nav-brand">AITokenTools</a>
+    <button class="nav-hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
+    </button>
+    <ul class="nav-links" :class="menuOpen ? 'open' : ''">
+      <li><a href="/">Home</a></li>
+      <li><a href="/token-counter.html">Token Counter</a></li>
+      <li><a href="/cost-calculator.html" class="active">Cost Calc</a></li>
+      <li><a href="/model-comparison.html">Compare</a></li>
+      <li><a href="/prompt-builder.html">Prompt Builder</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
   </div>
 </nav>
 
 <div class="container">
-  <h1>AI API Cost Calculator</h1>
-  <p class="subtitle">Enter your token counts and request volume to see exact API costs across every major model.</p>
+  <div class="page-header">
+    <h1>AI API Cost Calculator</h1>
+    <p class="subtitle">Enter your token counts and request volume to see exact API costs across every major model, ranked cheapest to most expensive.</p>
+  </div>
 
-  <div class="tool-card" x-data="costCalc()">
+  <div class="card" x-data="costCalc()">
     <div class="grid-2">
       <div class="field">
         <label for="input-tokens">Input tokens per request</label>
@@ -97,12 +130,22 @@
       </div>
     </div>
     <div class="field">
-      <label for="num-requests">Number of requests per month</label>
+      <label for="num-requests">Requests per month</label>
       <input type="number" id="num-requests" x-model.number="numRequests" @input="calculate()" min="1" placeholder="e.g. 10000">
     </div>
 
     <template x-if="results.length > 0">
       <div>
+        <div class="summary-box">
+          <div class="summary-item">
+            <div class="label">Cheapest Option</div>
+            <div class="value" x-text="results[0] ? results[0].model : '—'"></div>
+          </div>
+          <div class="summary-item">
+            <div class="label">Lowest Monthly Cost</div>
+            <div class="value" x-text="results[0] ? '$' + results[0].monthly : '—'"></div>
+          </div>
+        </div>
         <table class="result-table">
           <thead>
             <tr>
@@ -114,93 +157,142 @@
           </thead>
           <tbody>
             <template x-for="r in results" :key="r.model">
-              <tr :class="r.highlight ? 'highlight' : ''">
+              <tr>
                 <td>
                   <span x-text="r.model"></span>
                   <span x-show="r.badge" class="badge" x-text="r.badge"></span>
                 </td>
-                <td x-text="r.provider"></td>
+                <td class="provider-tag" x-text="r.provider"></td>
                 <td class="cost" x-text="'$' + r.perRequest"></td>
                 <td class="cost" x-text="'$' + r.monthly"></td>
               </tr>
             </template>
           </tbody>
         </table>
-        <p style="font-size:.8rem;color:var(--color-muted);margin-top:.75rem">
-          Prices as of mid-2026. Always verify current pricing at provider docs. Cached input tokens may be cheaper.
-        </p>
+        <p class="price-note">Prices as of August 2026. Always verify current pricing at provider documentation. Cached input tokens may be billed at lower rates by some providers.</p>
       </div>
     </template>
   </div>
 
   <div class="ad-slot">Advertisement</div>
 
-  <div class="faq">
-    <h2>How is AI API cost calculated?</h2>
-    <p>AI APIs charge separately for input tokens (your prompt) and output tokens (the model's response), both measured per 1 million tokens. Cost = (input_tokens × input_rate) + (output_tokens × output_rate). Multiply by request count for total spend.</p>
-
-    <h2>Which model is the cheapest for high-volume use?</h2>
-    <p>For high request volumes (100K+/month), Gemini 2.0 Flash and GPT-4o mini are typically the most cost-effective. Claude Haiku 4.5 is also very competitive. The right choice depends on your quality requirements — test outputs before optimizing purely for cost.</p>
-
-    <h2>What are cached input tokens?</h2>
-    <p>Many providers offer prompt caching, where repeated portions of your system prompt are cached and billed at a lower rate (typically 25–50% of normal input cost). This is useful when you have a long system prompt sent with every request.</p>
-
-    <h2>Does context window size affect cost?</h2>
-    <p>Context window size affects the maximum tokens you <em>can</em> send, not the base rate. However, some models (like Gemini 2.5 Pro) have tiered pricing where prompts over 200K tokens are billed at a higher rate.</p>
-
-    <h2>How much does it cost to run GPT-4o for a customer support bot?</h2>
-    <p>A typical customer support message might be 500 input tokens + 200 output tokens. At GPT-4o rates ($2.50 in / $10.00 out per 1M), that's $0.00125 + $0.002 = $0.00325 per conversation. At 10,000 conversations/month: ~$32.50/month.</p>
-
-    <h2>What is the difference between input and output pricing?</h2>
-    <p>Output tokens are typically 3–5× more expensive than input tokens because generating text requires more compute than reading it. Always factor this into your cost estimates, especially for long-form generation tasks.</p>
+  <div class="how-to">
+    <h2>How to Use the Cost Calculator</h2>
+    <ol>
+      <li>Enter the average number of input tokens per request (your prompts, system prompt, and conversation history)</li>
+      <li>Enter the average number of output tokens per request (the model's response length)</li>
+      <li>Enter your estimated monthly request volume</li>
+      <li>Results appear sorted from cheapest to most expensive — use this to choose the right model for your budget</li>
+      <li>Unsure about token counts? Use our <a href="/token-counter.html">token counter</a> to measure your typical prompts</li>
+    </ol>
   </div>
 
+  <div class="faq">
+    <div class="faq-label">Frequently Asked Questions</div>
+
+    <div class="faq-item">
+      <h2>How is AI API cost calculated?</h2>
+      <p>AI APIs charge separately for input tokens (your prompt) and output tokens (the model's response), both measured per million tokens. The formula is: <strong>Cost = (input_tokens × input_rate) + (output_tokens × output_rate)</strong>. Multiply by your total request count for monthly spend. Input and output rates differ by model — GPT-4o charges $2.50/1M input and $10.00/1M output, meaning output is 4× more expensive. Always account for both when estimating costs.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Which AI model is cheapest for high-volume applications?</h2>
+      <p>For high request volumes (100,000+ per month), Gemini 2.0 Flash is typically the lowest cost at $0.10/1M input and $0.40/1M output. GPT-4o mini ($0.15/$0.60) and Claude Haiku 4.5 ($0.80/$4.00) are the next most affordable. However, cost alone shouldn't drive model selection — test output quality on your specific use case first. A cheaper model that requires more retries or produces lower-quality output may cost more in practice.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>What is prompt caching and how does it reduce costs?</h2>
+      <p>Prompt caching allows you to mark portions of your prompt (typically the system prompt or reference documents) for server-side caching. On subsequent requests, cached content is read at a lower "cache read" rate — typically 25–50% of the normal input price. Anthropic charges $0.30/1M for cached Claude Sonnet reads vs. $3.00/1M for uncached. OpenAI automatically caches prompts over 1,024 tokens at 50% discount. If your system prompt is 2,000 tokens sent with 100,000 monthly requests, caching can save hundreds of dollars per month.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Why are output tokens more expensive than input tokens?</h2>
+      <p>Output tokens are typically 3–5× more expensive because generating text requires significantly more compute than reading it. During input processing, the model runs a single forward pass to build its internal representation. During output generation, the model runs a full forward pass for each token it generates — hundreds or thousands of sequential operations. This autoregressive generation process is computationally intensive and cannot be parallelized in the same way as input processing. This cost difference is one reason to prefer concise, high-information-density outputs when optimizing for cost.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>How much does it cost to build a customer support chatbot?</h2>
+      <p>A typical customer support interaction might involve 800 input tokens (system prompt + conversation history + user message) and 300 output tokens (agent response). Using GPT-4o ($2.50 in / $10.00 out per 1M), that's (800 × $0.0000025) + (300 × $0.00001) = $0.002 + $0.003 = $0.005 per conversation. At 10,000 conversations per month: $50/month. Switching to GPT-4o mini reduces this to approximately $3/month for the same volume. The <a href="/model-comparison.html">model comparison table</a> can help you identify the right price-performance tradeoff for your use case.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Does context window size affect pricing?</h2>
+      <p>Context window size determines the maximum tokens you can send, not the base rate. However, some models have tiered pricing where large inputs are billed differently. Gemini 2.5 Pro has tiered pricing where prompts over 200K tokens are billed at a higher rate ($2.50/1M rather than $1.25/1M). For most applications sending typical-sized prompts, the tiered pricing doesn't apply. The key insight is that a larger context window doesn't cost more unless you actually use it.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Are reasoning models like o3 worth the premium cost?</h2>
+      <p>Reasoning models like OpenAI's o3 and o4-mini are 5–40× more expensive than standard models, but they produce dramatically better results on tasks requiring multi-step logical deduction, complex mathematics, and long-horizon coding problems. For simple tasks (summarization, translation, basic Q&A), the premium is not justified. For complex tasks (scientific reasoning, advanced code generation, intricate planning), reasoning models can outperform much-cheaper alternatives so significantly that they are actually more cost-efficient when you factor in the quality of results and reduced need for multiple retries or human oversight.</p>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="related">
+    <div class="related-label">More AI Tools</div>
+    <div class="related-grid">
+      <a href="/token-counter.html" class="related-card">
+        <strong>Token Counter</strong>
+        <span>Count tokens before calculating costs</span>
+      </a>
+      <a href="/model-comparison.html" class="related-card">
+        <strong>Model Comparison</strong>
+        <span>Full specs and pricing for every major model</span>
+      </a>
+      <a href="/prompt-builder.html" class="related-card">
+        <strong>Prompt Builder</strong>
+        <span>Build shorter, more effective system prompts</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:var(--max-width);margin:0 auto;padding:0 1.25rem">
   <div class="ad-slot">Advertisement</div>
 </div>
 
 <footer>
-  <p>&copy; 2026 AITokenTools.com &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/token-counter.html">Token Counter</a>
+      <a href="/model-comparison.html">Model Comparison</a>
+      <a href="/prompt-builder.html">Prompt Builder</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 AITokenTools.com &nbsp;·&nbsp; Free AI developer utilities</div>
+  </div>
 </footer>
 
 <script>
 function costCalc() {
   const models = [
-    { model: 'GPT-4o',          provider: 'OpenAI',     inputPer1M: 2.50,  outputPer1M: 10.00 },
-    { model: 'GPT-4o mini',     provider: 'OpenAI',     inputPer1M: 0.15,  outputPer1M: 0.60,  badge: 'budget' },
-    { model: 'GPT-4.1',         provider: 'OpenAI',     inputPer1M: 2.00,  outputPer1M: 8.00  },
-    { model: 'o3',              provider: 'OpenAI',     inputPer1M: 10.00, outputPer1M: 40.00, badge: 'reasoning' },
-    { model: 'o4-mini',         provider: 'OpenAI',     inputPer1M: 1.10,  outputPer1M: 4.40,  badge: 'reasoning' },
-    { model: 'Claude Opus 4.7', provider: 'Anthropic',  inputPer1M: 15.00, outputPer1M: 75.00 },
-    { model: 'Claude Sonnet 4.6', provider: 'Anthropic',inputPer1M: 3.00,  outputPer1M: 15.00 },
-    { model: 'Claude Haiku 4.5',  provider: 'Anthropic',inputPer1M: 0.80,  outputPer1M: 4.00,  badge: 'budget' },
-    { model: 'Gemini 2.5 Pro',  provider: 'Google',     inputPer1M: 1.25,  outputPer1M: 10.00 },
-    { model: 'Gemini 2.5 Flash',provider: 'Google',     inputPer1M: 0.30,  outputPer1M: 2.50,  badge: 'budget' },
-    { model: 'Gemini 2.0 Flash',provider: 'Google',     inputPer1M: 0.10,  outputPer1M: 0.40,  badge: 'budget' },
+    { model:'GPT-4o',          provider:'OpenAI',    inputPer1M:2.50,  outputPer1M:10.00 },
+    { model:'GPT-4o mini',     provider:'OpenAI',    inputPer1M:0.15,  outputPer1M:0.60,  badge:'budget' },
+    { model:'GPT-4.1',         provider:'OpenAI',    inputPer1M:2.00,  outputPer1M:8.00  },
+    { model:'o3',              provider:'OpenAI',    inputPer1M:10.00, outputPer1M:40.00, badge:'reasoning' },
+    { model:'o4-mini',         provider:'OpenAI',    inputPer1M:1.10,  outputPer1M:4.40,  badge:'reasoning' },
+    { model:'Claude Opus 4.7', provider:'Anthropic', inputPer1M:15.00, outputPer1M:75.00 },
+    { model:'Claude Sonnet 4.6',provider:'Anthropic',inputPer1M:3.00,  outputPer1M:15.00 },
+    { model:'Claude Haiku 4.5', provider:'Anthropic',inputPer1M:0.80,  outputPer1M:4.00,  badge:'budget' },
+    { model:'Gemini 2.5 Pro',  provider:'Google',    inputPer1M:1.25,  outputPer1M:10.00 },
+    { model:'Gemini 2.5 Flash',provider:'Google',    inputPer1M:0.30,  outputPer1M:2.50,  badge:'budget' },
+    { model:'Gemini 2.0 Flash',provider:'Google',    inputPer1M:0.10,  outputPer1M:0.40,  badge:'budget' },
   ];
-
   return {
-    inputTokens: 1000,
-    outputTokens: 500,
-    numRequests: 10000,
-    results: [],
-
-    init() { this.calculate(); },
-
-    calculate() {
-      const inp = Number(this.inputTokens) || 0;
-      const out = Number(this.outputTokens) || 0;
-      const n   = Number(this.numRequests)  || 1;
-
-      this.results = models.map(m => {
-        const perReq = (inp / 1e6) * m.inputPer1M + (out / 1e6) * m.outputPer1M;
-        const monthly = perReq * n;
-        return {
-          model: m.model, provider: m.provider, badge: m.badge || null,
-          perRequest: perReq < 0.001 ? perReq.toFixed(6) : perReq.toFixed(4),
-          monthly: monthly < 0.01 ? monthly.toFixed(4) : monthly.toFixed(2),
-          monthlyRaw: monthly,
-        };
-      }).sort((a, b) => a.monthlyRaw - b.monthlyRaw);
+    inputTokens:1000,outputTokens:500,numRequests:10000,results:[],
+    init(){this.calculate()},
+    calculate(){
+      const inp=Number(this.inputTokens)||0, out=Number(this.outputTokens)||0, n=Number(this.numRequests)||1;
+      this.results=models.map(m=>{
+        const perReq=(inp/1e6)*m.inputPer1M+(out/1e6)*m.outputPer1M;
+        const monthly=perReq*n;
+        return{model:m.model,provider:m.provider,badge:m.badge||null,
+          perRequest:perReq<0.001?perReq.toFixed(6):perReq.toFixed(4),
+          monthly:monthly<0.01?monthly.toFixed(4):monthly.toFixed(2),monthlyRaw:monthly};
+      }).sort((a,b)=>a.monthlyRaw-b.monthlyRaw);
     }
   };
 }

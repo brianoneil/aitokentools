@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About AI Token Tools – Free AI Developer Utilities</title>
+  <meta name="description" content="AI Token Tools is a free suite of developer utilities for working with AI language model APIs. Learn about our tools, our mission, and why we built them.">
+  <link rel="canonical" href="https://aitokentools.com/about.html">
+  <meta property="og:title" content="About AI Token Tools">
+  <meta property="og:description" content="Free AI developer utilities — token counter, cost calculator, model comparison, and prompt builder. Learn about our mission.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/about.html">
+  <meta property="og:image" content="https://aitokentools.com/assets/og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About AI Token Tools",
+    "description": "AI Token Tools provides free developer utilities for working with AI language model APIs.",
+    "url": "https://aitokentools.com/about.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Albert+Sans:wght@400;500;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    :root{--bg:#171613;--bg-raised:#1E1C18;--bg-elevated:#252320;--border:#2E2C28;--text:#E1E1E1;--muted:#9D968E;--accent:#FFBA00;--accent-dim:rgba(255,186,0,0.10);--accent-hover:#FFC933;--teal:#0FB6AC;--radius:5px;--font-head:'Alumni Sans','Albert Sans',Arial,sans-serif;--font-body:'Albert Sans','Avenir Next','Helvetica Neue',system-ui,sans-serif;--max-width:800px;--shadow:0 2px 16px rgba(0,0,0,.45)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-hover)}
+    h1,h2,h3{font-family:var(--font-head);line-height:1.1}
+    nav{background:rgba(23,22,19,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+    .nav-inner{max-width:960px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;height:56px;gap:1rem}
+    .nav-brand{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;margin-right:auto;flex-shrink:0}
+    .nav-links{display:flex;align-items:center;gap:1.25rem;list-style:none}
+    .nav-links a{font-size:.83rem;font-weight:500;color:var(--muted);transition:color .15s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-links a.active{color:var(--accent)}
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--muted);padding:.25rem}
+    @media(max-width:680px){.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:#1A1916;border-bottom:1px solid var(--border);flex-direction:column;padding:1rem 1.25rem;gap:.875rem}.nav-links.open{display:flex}.nav-hamburger{display:flex}}
+    .container{max-width:var(--max-width);margin:0 auto;padding:3rem 1.25rem 4rem}
+    .page-header{padding-bottom:2.5rem;margin-bottom:2.5rem;border-bottom:1px solid var(--border)}
+    .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+    .page-header h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--text);margin-bottom:.75rem;letter-spacing:-.02em}
+    .page-header p{font-size:1.05rem;color:var(--muted);line-height:1.7;max-width:600px}
+    .prose p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:1.25rem}
+    .prose h2{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--text);margin:2.5rem 0 .875rem;letter-spacing:-.01em}
+    .prose h3{font-family:var(--font-head);font-size:1.15rem;font-weight:600;color:var(--text);margin:1.5rem 0 .5rem}
+    .prose a{color:var(--accent)}
+    .prose strong{color:var(--text);font-weight:600}
+    .tool-list{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+    @media(max-width:540px){.tool-list{grid-template-columns:1fr}}
+    .tool-item{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:1.125rem 1.25rem}
+    .tool-item h3{font-family:var(--font-head);font-size:1.05rem;font-weight:700;color:var(--accent);margin-bottom:.35rem}
+    .tool-item p{font-size:.82rem;color:var(--muted);line-height:1.6;margin:0}
+    .values-list{list-style:none;margin:1rem 0 1.5rem}
+    .values-list li{padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--muted);display:flex;gap:.75rem;align-items:baseline}
+    .values-list li:last-child{border-bottom:none}
+    .values-list .val-mark{color:var(--accent);font-size:1rem;flex-shrink:0}
+    .ad-slot{background:var(--bg-raised);border:1px dashed var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.05em;margin:2.5rem 0}
+    .cta-box{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;text-align:center;margin-top:2.5rem}
+    .cta-box h2{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--text);margin-bottom:.5rem}
+    .cta-box p{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+    .cta-tools{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.25rem;font-family:var(--font-body);font-size:.875rem;font-weight:600;border:none;border-radius:2px;cursor:pointer;transition:all .15s;text-decoration:none}
+    .btn-primary{background:var(--accent);color:#0B0903}
+    .btn-primary:hover{background:var(--accent-hover);color:#0B0903}
+    .btn-ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,186,0,.35)}
+    .btn-ghost:hover{background:var(--accent-dim);color:var(--accent)}
+    footer{border-top:1px solid var(--border);padding:2rem 1.25rem;text-align:center}
+    .footer-inner{max-width:960px;margin:0 auto}
+    .footer-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
+    .footer-links a{font-size:.8rem;color:var(--muted)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-copy{font-size:.78rem;color:var(--muted)}
+  </style>
+</head>
+<body x-data="{ menuOpen: false }">
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">AITokenTools</a>
+    <button class="nav-hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
+    </button>
+    <ul class="nav-links" :class="menuOpen ? 'open' : ''">
+      <li><a href="/">Home</a></li>
+      <li><a href="/token-counter.html">Token Counter</a></li>
+      <li><a href="/cost-calculator.html">Cost Calc</a></li>
+      <li><a href="/model-comparison.html">Compare</a></li>
+      <li><a href="/prompt-builder.html">Prompt Builder</a></li>
+      <li><a href="/about.html" class="active">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <div class="eyebrow">About This Site</div>
+    <h1>Built for Developers<br>Working with AI APIs</h1>
+    <p>AI Token Tools is a free suite of practical developer utilities designed to make working with AI language model APIs faster and more informed. Everything runs in your browser — no accounts, no servers, no data collection.</p>
+  </div>
+
+  <div class="prose">
+    <h2>Why We Built This</h2>
+    <p>Every developer working with AI APIs faces the same friction: you need to know how many tokens your prompt uses before you can estimate costs, but most tokenizer libraries require a local install or an API call just to get a count. You need to compare model prices across providers, but each has a different pricing page with different table formats. You need to write an effective system prompt, but the right format differs between Claude, GPT-4o, and Gemini.</p>
+    <p>AI Token Tools was built to solve these specific, practical problems in one place. The tools are intentionally minimal — no dashboards, no account management, no features you don't need. Just fast, accurate utility tools that answer the questions developers ask every day.</p>
+
+    <div class="ad-slot">Advertisement</div>
+
+    <h2>The Tools</h2>
+    <div class="tool-list">
+      <div class="tool-item">
+        <h3><a href="/token-counter.html">Token Counter</a></h3>
+        <p>Count tokens in any text for GPT-4o, Claude, and Gemini models using BPE approximation. See character count, word count, and an estimated input cost — all in real time as you type.</p>
+      </div>
+      <div class="tool-item">
+        <h3><a href="/cost-calculator.html">API Cost Calculator</a></h3>
+        <p>Enter your token counts and monthly request volume to see exact API costs across 11 models, ranked from cheapest to most expensive. Essential before you scale a workload.</p>
+      </div>
+      <div class="tool-item">
+        <h3><a href="/model-comparison.html">Model Comparison</a></h3>
+        <p>Side-by-side specs for every major LLM: context window, input/output pricing, and key capabilities. Sortable and filterable by provider and budget.</p>
+      </div>
+      <div class="tool-item">
+        <h3><a href="/prompt-builder.html">System Prompt Builder</a></h3>
+        <p>Build structured system prompts visually, formatted correctly for Claude (XML tags), GPT-4o (Markdown), or Gemini (prose). Start from four professional templates.</p>
+      </div>
+    </div>
+
+    <h2>Our Principles</h2>
+    <ul class="values-list">
+      <li><span class="val-mark">→</span><span><strong>Free, always.</strong> Every tool on this site is and will remain free to use.</span></li>
+      <li><span class="val-mark">→</span><span><strong>No accounts required.</strong> You should never need to sign up to use a utility tool. There's nothing to log in to.</span></li>
+      <li><span class="val-mark">→</span><span><strong>Privacy first.</strong> All processing happens in your browser. Your text, prompts, and data never leave your device or reach our servers.</span></li>
+      <li><span class="val-mark">→</span><span><strong>Accurate and up to date.</strong> We update model specs and pricing when providers make changes. If you notice a discrepancy, <a href="/contact.html">let us know</a>.</span></li>
+      <li><span class="val-mark">→</span><span><strong>No bloat.</strong> Tools do one thing well. We don't add features for the sake of appearing more capable.</span></li>
+    </ul>
+
+    <h2>Who This Is For</h2>
+    <p>AI Token Tools is designed for:</p>
+    <ul style="list-style:none;padding:0;margin:.75rem 0 1.25rem;display:flex;flex-direction:column;gap:.4rem">
+      <li style="font-size:.9rem;color:var(--muted);padding:.35rem 0;border-bottom:1px solid var(--border)">Software engineers building LLM-powered features and applications</li>
+      <li style="font-size:.9rem;color:var(--muted);padding:.35rem 0;border-bottom:1px solid var(--border)">Prompt engineers designing and optimizing system prompts</li>
+      <li style="font-size:.9rem;color:var(--muted);padding:.35rem 0;border-bottom:1px solid var(--border)">AI product managers estimating API costs for roadmap decisions</li>
+      <li style="font-size:.9rem;color:var(--muted);padding:.35rem 0;border-bottom:1px solid var(--border)">Researchers and students learning how language model tokenization works</li>
+      <li style="font-size:.9rem;color:var(--muted);padding:.35rem 0">Data scientists evaluating which model to use for a particular task</li>
+    </ul>
+
+    <h2>About the Site</h2>
+    <p>AI Token Tools is built with plain HTML, CSS, and Alpine.js — no heavy frameworks, no build pipeline, no server infrastructure. All tool logic runs entirely client-side. The site is hosted on Cloudflare Pages and served from edge locations worldwide for fast load times regardless of where you are.</p>
+    <p>Model pricing data is manually maintained and updated when providers announce price changes. We aim to update within 24 hours of any change. Token counts use a BPE approximation algorithm calibrated against cl100k_base, the tokenizer used by GPT-4o and Claude models.</p>
+    <p>This site uses Cloudflare Web Analytics for basic traffic metrics. Cloudflare Analytics is cookieless and collects no personal data. We do not use Google Analytics or any other tracking service. See our <a href="/privacy.html">Privacy Policy</a> for complete details.</p>
+  </div>
+
+  <div class="cta-box">
+    <h2>Try the Tools</h2>
+    <p>All tools are free, instant, and require no signup.</p>
+    <div class="cta-tools">
+      <a href="/token-counter.html" class="btn btn-primary">Token Counter</a>
+      <a href="/cost-calculator.html" class="btn btn-ghost">Cost Calculator</a>
+      <a href="/model-comparison.html" class="btn btn-ghost">Model Comparison</a>
+      <a href="/prompt-builder.html" class="btn btn-ghost">Prompt Builder</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/token-counter.html">Token Counter</a>
+      <a href="/cost-calculator.html">Cost Calculator</a>
+      <a href="/model-comparison.html">Model Comparison</a>
+      <a href="/prompt-builder.html">Prompt Builder</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 AITokenTools.com &nbsp;·&nbsp; Free AI developer utilities</div>
+  </div>
+</footer>
+</body>
+</html>

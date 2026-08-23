@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact – AI Token Tools</title>
+  <meta name="description" content="Contact the AI Token Tools team. Report a bug, suggest a feature, report incorrect pricing data, or ask a general question.">
+  <link rel="canonical" href="https://aitokentools.com/contact.html">
+  <meta property="og:title" content="Contact – AI Token Tools">
+  <meta property="og:description" content="Contact the AI Token Tools team for bug reports, feature requests, or pricing corrections.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/contact.html">
+  <meta property="og:image" content="https://aitokentools.com/assets/og.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact AI Token Tools",
+    "description": "Contact form and information for AI Token Tools.",
+    "url": "https://aitokentools.com/contact.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    :root{--bg:#171613;--bg-raised:#1E1C18;--bg-elevated:#252320;--border:#2E2C28;--text:#E1E1E1;--muted:#9D968E;--accent:#FFBA00;--accent-dim:rgba(255,186,0,0.10);--accent-hover:#FFC933;--teal:#0FB6AC;--radius:5px;--font-head:'Alumni Sans','Albert Sans',Arial,sans-serif;--font-body:'Albert Sans','Avenir Next','Helvetica Neue',system-ui,sans-serif;--max-width:760px;--shadow:0 2px 16px rgba(0,0,0,.45)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-hover)}
+    h1,h2,h3{font-family:var(--font-head);line-height:1.1}
+    nav{background:rgba(23,22,19,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+    .nav-inner{max-width:960px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;height:56px;gap:1rem}
+    .nav-brand{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;margin-right:auto;flex-shrink:0}
+    .nav-links{display:flex;align-items:center;gap:1.25rem;list-style:none}
+    .nav-links a{font-size:.83rem;font-weight:500;color:var(--muted);transition:color .15s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-links a.active{color:var(--accent)}
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--muted);padding:.25rem}
+    @media(max-width:680px){.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:#1A1916;border-bottom:1px solid var(--border);flex-direction:column;padding:1rem 1.25rem;gap:.875rem}.nav-links.open{display:flex}.nav-hamburger{display:flex}}
+    .container{max-width:var(--max-width);margin:0 auto;padding:3rem 1.25rem 4rem}
+    .page-header{padding-bottom:2rem;margin-bottom:2.5rem;border-bottom:1px solid var(--border)}
+    .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+    .page-header h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--text);margin-bottom:.5rem;letter-spacing:-.02em}
+    .page-header p{font-size:1rem;color:var(--muted);line-height:1.7}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+    @media(max-width:600px){.contact-grid{grid-template-columns:1fr}}
+    .contact-form{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow)}
+    .contact-form h2{font-family:var(--font-head);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1.25rem}
+    .field{margin-bottom:1rem}
+    label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+    input[type="text"],input[type="email"],select,textarea{width:100%;padding:.6rem .875rem;background:var(--bg-elevated);border:1px solid var(--border);border-radius:0;color:var(--text);font-family:var(--font-body);font-size:.9rem;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+    input::placeholder,textarea::placeholder{color:var(--muted);opacity:.5}
+    textarea{resize:vertical;min-height:120px;line-height:1.6}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.5rem;font-family:var(--font-body);font-size:.9rem;font-weight:600;border:none;border-radius:2px;cursor:pointer;transition:all .15s;text-decoration:none}
+    .btn-primary{background:var(--accent);color:#0B0903;width:100%;justify-content:center}
+    .btn-primary:hover{background:var(--accent-hover);color:#0B0903}
+    .success-msg{background:rgba(15,182,172,.1);border:1px solid rgba(15,182,172,.3);border-radius:var(--radius);padding:1rem 1.25rem;color:var(--teal);font-size:.9rem;margin-top:1rem}
+    .contact-info{display:flex;flex-direction:column;gap:1.25rem}
+    .info-card{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem}
+    .info-card h3{font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
+    .info-card p{font-size:.85rem;color:var(--muted);line-height:1.6}
+    .info-card a{color:var(--accent)}
+    .response-time{font-size:.78rem;color:var(--muted);margin-top:.4rem;opacity:.8}
+    .faq{margin-top:2.5rem}
+    .faq-label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+    .faq-item{border-top:1px solid var(--border);padding:1.125rem 0}
+    .faq-item:last-child{border-bottom:1px solid var(--border)}
+    .faq-item h2{font-family:var(--font-head);font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:.45rem}
+    .faq-item p{font-size:.875rem;color:var(--muted);line-height:1.7}
+    .faq-item a{color:var(--accent)}
+    .ad-slot{background:var(--bg-raised);border:1px dashed var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.05em;margin:2rem 0}
+    footer{border-top:1px solid var(--border);padding:2rem 1.25rem;text-align:center}
+    .footer-inner{max-width:960px;margin:0 auto}
+    .footer-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1rem}
+    .footer-links a{font-size:.8rem;color:var(--muted)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-copy{font-size:.78rem;color:var(--muted)}
+  </style>
+</head>
+<body x-data="{ menuOpen: false }">
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">AITokenTools</a>
+    <button class="nav-hamburger" @click="menuOpen = !menuOpen" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
+    </button>
+    <ul class="nav-links" :class="menuOpen ? 'open' : ''">
+      <li><a href="/">Home</a></li>
+      <li><a href="/token-counter.html">Token Counter</a></li>
+      <li><a href="/cost-calculator.html">Cost Calc</a></li>
+      <li><a href="/model-comparison.html">Compare</a></li>
+      <li><a href="/prompt-builder.html">Prompt Builder</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html" class="active">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <div class="eyebrow">Get in Touch</div>
+    <h1>Contact Us</h1>
+    <p>Found a bug, noticed incorrect pricing data, or have a suggestion for a new tool? We'd love to hear from you. We typically respond within 1–2 business days.</p>
+  </div>
+
+  <div class="contact-grid" x-data="contactForm()">
+    <div class="contact-form">
+      <h2>Send a Message</h2>
+      <form @submit.prevent="submit()">
+        <div class="field">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" x-model="name" placeholder="Alex Smith" required>
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" x-model="email" placeholder="alex@example.com" required>
+        </div>
+        <div class="field">
+          <label for="subject">Subject</label>
+          <select id="subject" x-model="subject">
+            <option value="">— Select a topic —</option>
+            <option value="bug">Bug Report</option>
+            <option value="pricing">Incorrect Pricing / Specs</option>
+            <option value="feature">Feature Request</option>
+            <option value="adsense">Advertising Inquiry</option>
+            <option value="general">General Question</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" x-model="message" placeholder="Describe your question, bug report, or suggestion in detail…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" :disabled="submitting">
+          <span x-text="submitting ? 'Sending…' : 'Send Message'"></span>
+        </button>
+        <div class="success-msg" x-show="submitted" x-transition>
+          Thanks for reaching out! We'll get back to you within 1–2 business days.
+        </div>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <div class="info-card">
+        <h3>Bug Reports</h3>
+        <p>Found a calculation error, broken layout, or incorrect model data? Please include the specific tool, browser/device, and steps to reproduce. We prioritize accuracy fixes.</p>
+        <p class="response-time">Response time: typically within 24 hours</p>
+      </div>
+      <div class="info-card">
+        <h3>Pricing Corrections</h3>
+        <p>AI model pricing changes frequently. If you notice a price discrepancy between what we show and a provider's official pricing page, please let us know with a link to the source. We update within 24 hours of a verified change.</p>
+      </div>
+      <div class="info-card">
+        <h3>Feature Requests</h3>
+        <p>Have an idea for a new tool or an improvement to an existing one? We're always looking to add utilities that genuinely help developers. Describe your use case and we'll consider it for a future update.</p>
+      </div>
+      <div class="info-card">
+        <h3>Advertising</h3>
+        <p>For advertising inquiries, please select "Advertising Inquiry" in the subject dropdown and include details about your campaign. We maintain editorial independence from advertisers.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="faq">
+    <div class="faq-label">Common Questions</div>
+
+    <div class="faq-item">
+      <h2>How quickly do you respond to messages?</h2>
+      <p>We aim to respond to all contact form submissions within 1–2 business days. Bug reports and pricing correction requests are typically addressed within 24 hours, as we prioritize accuracy of the data we display. For urgent issues, please include "URGENT" in your message subject.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>How do I report incorrect model pricing?</h2>
+      <p>Select "Incorrect Pricing / Specs" in the subject dropdown and provide: the specific model name, the current value shown on our site, the correct value, and a link to the official source (OpenAI pricing page, Anthropic pricing page, Google AI pricing page, etc.). We verify all corrections against official provider documentation before updating.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Can I request a new AI tool or feature?</h2>
+      <p>Yes — we welcome feature requests. The best requests describe a specific problem you're trying to solve rather than a specific implementation. For example, "I need to quickly see how much a conversation history costs if I switch from GPT-4o to Claude" is more useful than "add a conversion calculator." We're particularly interested in tools that fill genuine gaps in the AI developer workflow.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Do you offer API access to these tools?</h2>
+      <p>Currently, all tools are browser-only. The underlying JavaScript logic is visible in the page source for those who want to adapt it. If there's significant demand for an API, we may add one in the future — please let us know via the contact form if this is something you'd use.</p>
+    </div>
+
+    <div class="faq-item">
+      <h2>Can I link to or embed these tools?</h2>
+      <p>Yes — you're welcome to link to any tool page. The tools are not designed for embedding (iframe), but linking is always fine. If you write a blog post, tutorial, or tool comparison that references AI Token Tools, we'd love to know about it.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/token-counter.html">Token Counter</a>
+      <a href="/cost-calculator.html">Cost Calculator</a>
+      <a href="/model-comparison.html">Model Comparison</a>
+      <a href="/prompt-builder.html">Prompt Builder</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 AITokenTools.com &nbsp;·&nbsp; Free AI developer utilities</div>
+  </div>
+</footer>
+
+<script>
+function contactForm() {
+  return {
+    name: '', email: '', subject: '', message: '',
+    submitting: false, submitted: false,
+    submit() {
+      this.submitting = true;
+      const mailto = `mailto:hello@aitokentools.com?subject=${encodeURIComponent('[' + (this.subject || 'Contact') + '] ' + this.name)}&body=${encodeURIComponent('From: ' + this.name + ' <' + this.email + '>\n\n' + this.message)}`;
+      window.location.href = mailto;
+      setTimeout(() => {
+        this.submitting = false;
+        this.submitted = true;
+      }, 800);
+    }
+  };
+}
+</script>
+</body>
+</html>
