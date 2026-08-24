@@ -17,7 +17,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "AI Model Comparison 2026",
-    "description": "Side-by-side comparison of GPT-4o, Claude, Gemini, and other major AI models — context window, pricing, and capabilities.",
+    "description": "Side-by-side comparison of GPT-5.6, Claude 5, Gemini 3.x, and other major AI models — context window, pricing, and capabilities.",
     "url": "https://aitokentools.com/model-comparison.html",
     "dateModified": "2026-08-23"
   }
@@ -180,18 +180,18 @@
     </div>
 
     <div class="faq-item">
-      <h2>GPT-4o vs Claude Sonnet 4.6 — which should I use?</h2>
-      <p>Both are excellent general-purpose models at similar price points ($2.50 vs. $3.00 per million input tokens). GPT-4o tends to perform marginally better on structured coding tasks and following complex multi-step instructions with tool use. Claude Sonnet 4.6 typically excels at nuanced long-document analysis, creative writing, and maintaining complex context across very long conversations. Claude's XML-structured response capabilities make it a popular choice for applications requiring predictable, parseable output. For most teams, the best approach is to evaluate both on your specific prompt patterns — real-world performance often differs from benchmark leaderboards.</p>
+      <h2>GPT-5.6 Terra vs Claude Sonnet 5 — which should I use?</h2>
+      <p>Both are excellent mid-tier models at similar price points ($2.00 vs. $2.00 per million input tokens). GPT-5.6 Terra tends to excel on structured coding tasks, tool use, and complex multi-step instruction following within its 270K context window. Claude Sonnet 5 typically shines at nuanced long-document analysis, creative writing, and use cases requiring predictable structured output — Claude's XML-formatted response capabilities remain a popular choice for applications needing parseable outputs. For most teams, the best approach is to evaluate both on your actual prompt patterns, since real-world performance often differs significantly from published benchmark scores.</p>
     </div>
 
     <div class="faq-item">
       <h2>What does "context window" mean for practical applications?</h2>
-      <p>The context window is the maximum number of tokens a model can process in a single API call — this includes your system prompt, all conversation history, any documents you attach, and the model's response. Exceeding the context window causes the API to reject the request with an error. In practical terms, a 128K token context (like GPT-4o) can hold approximately 100 pages of text. A 200K context (like Claude) can hold roughly 150–160 pages. A 1M token context can hold entire codebases or several full-length books simultaneously. The context window is one of the most important practical constraints when designing AI applications, especially for RAG (Retrieval-Augmented Generation) systems or long-running chat sessions.</p>
+      <p>The context window is the maximum number of tokens a model can process in a single API call — this includes your system prompt, all conversation history, any documents you attach, and the model's response. Exceeding the context window causes the API to reject the request with an error. In practical terms, a 200K token context (like Claude) can hold roughly 150–160 pages of text. A 270K context (like GPT-5.6) holds about 200+ pages. A 1M token context (like all current Gemini models) can hold entire codebases or several full-length books simultaneously. Context window size is one of the most important practical constraints when designing AI applications, especially for RAG (Retrieval-Augmented Generation) systems or long-running agentic sessions.</p>
     </div>
 
     <div class="faq-item">
-      <h2>Are reasoning models like OpenAI o3 worth the cost?</h2>
-      <p>Reasoning models use internal chain-of-thought processing (often invisible to the user) to systematically work through complex problems before generating a response. This makes them significantly more accurate on tasks requiring multi-step logical deduction, mathematical proofs, complex code debugging, and scientific reasoning. However, they are 5–40× more expensive than standard models and slower due to the extra computation. For straightforward tasks, reasoning models add cost without improving results. They shine on genuinely hard problems where standard models frequently fail — benchmark your specific task to determine if the quality improvement justifies the price premium.</p>
+      <h2>Are flagship models like GPT-5.6 Sol or Claude Fable 5 worth the cost?</h2>
+      <p>Flagship models use significantly more compute to deliver higher-quality outputs on complex tasks — multi-step reasoning, nuanced creative writing, difficult code generation, and agentic workflows with many tool calls. They can be 5–50× more expensive than budget models. For straightforward tasks (summarization, classification, simple Q&A), the premium is rarely justified. They shine on genuinely hard problems where mid-tier models fail or produce inconsistent output. The practical approach: prototype with a flagship, then step down to a mid-tier model (GPT-5.6 Terra, Claude Sonnet 5, Gemini 3.5 Flash) and benchmark whether the quality holds for your specific task. Many production systems use a mix — flagship for complex reasoning steps, budget models for high-volume simple tasks.</p>
     </div>
 
     <div class="faq-item">
@@ -244,17 +244,18 @@
 function modelTable(){
   const MAX_CONTEXT=1000;
   const allModels=[
-    {model:'GPT-4o',provider:'OpenAI',contextK:128,inputPer1M:2.50,outputPer1M:10.00,tags:[{label:'vision',cls:'vision'},{label:'fast',cls:'fast'}]},
-    {model:'GPT-4o mini',provider:'OpenAI',contextK:128,inputPer1M:0.15,outputPer1M:0.60,tags:[{label:'budget',cls:'fast'},{label:'fast',cls:'fast'}]},
-    {model:'GPT-4.1',provider:'OpenAI',contextK:1000,inputPer1M:2.00,outputPer1M:8.00,tags:[{label:'code',cls:'code'},{label:'1M ctx',cls:''}]},
-    {model:'o3',provider:'OpenAI',contextK:200,inputPer1M:10.00,outputPer1M:40.00,tags:[{label:'reasoning',cls:'reason'},{label:'math',cls:'reason'}]},
-    {model:'o4-mini',provider:'OpenAI',contextK:200,inputPer1M:1.10,outputPer1M:4.40,tags:[{label:'reasoning',cls:'reason'},{label:'budget',cls:'fast'}]},
-    {model:'Claude Opus 4.7',provider:'Anthropic',contextK:200,inputPer1M:15.00,outputPer1M:75.00,tags:[{label:'advanced',cls:'reason'},{label:'vision',cls:'vision'}]},
-    {model:'Claude Sonnet 4.6',provider:'Anthropic',contextK:200,inputPer1M:3.00,outputPer1M:15.00,tags:[{label:'code',cls:'code'},{label:'vision',cls:'vision'}]},
-    {model:'Claude Haiku 4.5',provider:'Anthropic',contextK:200,inputPer1M:0.80,outputPer1M:4.00,tags:[{label:'budget',cls:'fast'},{label:'fast',cls:'fast'}]},
+    {model:'GPT-5.6 Sol',provider:'OpenAI',contextK:270,inputPer1M:4.00,outputPer1M:20.00,tags:[{label:'flagship',cls:'reason'},{label:'vision',cls:'vision'}]},
+    {model:'GPT-5.6 Terra',provider:'OpenAI',contextK:270,inputPer1M:2.00,outputPer1M:12.00,tags:[{label:'vision',cls:'vision'},{label:'code',cls:'code'}]},
+    {model:'GPT-5.6 Luna',provider:'OpenAI',contextK:270,inputPer1M:0.20,outputPer1M:1.20,tags:[{label:'budget',cls:'fast'},{label:'fast',cls:'fast'}]},
+    {model:'Claude Fable 5',provider:'Anthropic',contextK:200,inputPer1M:10.00,outputPer1M:50.00,tags:[{label:'flagship',cls:'reason'},{label:'vision',cls:'vision'}]},
+    {model:'Claude Opus 5',provider:'Anthropic',contextK:200,inputPer1M:5.00,outputPer1M:25.00,tags:[{label:'advanced',cls:'reason'},{label:'vision',cls:'vision'}]},
+    {model:'Claude Sonnet 5',provider:'Anthropic',contextK:200,inputPer1M:2.00,outputPer1M:10.00,tags:[{label:'code',cls:'code'},{label:'vision',cls:'vision'}]},
+    {model:'Claude Haiku 4.5',provider:'Anthropic',contextK:200,inputPer1M:1.00,outputPer1M:5.00,tags:[{label:'budget',cls:'fast'},{label:'fast',cls:'fast'}]},
+    {model:'Gemini 3.7 Flash',provider:'Google',contextK:1000,inputPer1M:0.75,outputPer1M:3.75,tags:[{label:'1M ctx',cls:''},{label:'fast',cls:'fast'}]},
+    {model:'Gemini 3.5 Flash',provider:'Google',contextK:1000,inputPer1M:1.50,outputPer1M:9.00,tags:[{label:'1M ctx',cls:''},{label:'vision',cls:'vision'}]},
     {model:'Gemini 2.5 Pro',provider:'Google',contextK:1000,inputPer1M:1.25,outputPer1M:10.00,tags:[{label:'1M ctx',cls:''},{label:'vision',cls:'vision'},{label:'reasoning',cls:'reason'}]},
-    {model:'Gemini 2.5 Flash',provider:'Google',contextK:1000,inputPer1M:0.30,outputPer1M:2.50,tags:[{label:'1M ctx',cls:''},{label:'fast',cls:'fast'},{label:'budget',cls:'fast'}]},
-    {model:'Gemini 2.0 Flash',provider:'Google',contextK:1000,inputPer1M:0.10,outputPer1M:0.40,tags:[{label:'cheapest',cls:'fast'},{label:'fast',cls:'fast'}]},
+    {model:'Gemini 2.5 Flash-Lite',provider:'Google',contextK:1000,inputPer1M:0.10,outputPer1M:0.40,tags:[{label:'1M ctx',cls:''},{label:'budget',cls:'fast'}]},
+    {model:'Gemini 2.0 Flash-Lite',provider:'Google',contextK:1000,inputPer1M:0.075,outputPer1M:0.30,tags:[{label:'cheapest',cls:'fast'},{label:'fast',cls:'fast'}]},
   ].map(m=>({...m,contextLabel:m.contextK>=1000?'1M':m.contextK+'K',contextBarPct:Math.round((m.contextK/MAX_CONTEXT)*80)+10}));
   return{
     filter:'all',sortKey:'inputPer1M',sortDir:1,visible:[],
