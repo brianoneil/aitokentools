@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Token Counter – Free Token Count Tool for GPT-4o, Claude & Gemini</title>
-  <meta name="description" content="Count tokens instantly for GPT-4o, Claude 4.7, Gemini 2.5 Pro, and more. Free online AI token counter — no signup, no install. Accurate BPE estimation.">
+  <title>AI Token Counter – Free Token Count Tool for GPT-5.6, Claude 5 & Gemini 3</title>
+  <meta name="description" content="Count tokens instantly for GPT-5.6, Claude 5, Gemini 3.x, and more. Free online AI token counter — no signup, no install. Accurate BPE estimation.">
   <link rel="canonical" href="https://aitokentools.com/token-counter.html">
   <meta property="og:title" content="AI Token Counter – Count Tokens for Any AI Model">
-  <meta property="og:description" content="Count tokens instantly for GPT-4o, Claude, Gemini, and more. Free online AI token counter.">
+  <meta property="og:description" content="Count tokens instantly for GPT-5.6, Claude 5, Gemini 3, and more. Free online AI token counter.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aitokentools.com/token-counter.html">
   <meta property="og:image" content="https://aitokentools.com/assets/og.png">
@@ -17,7 +17,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "AI Token Counter",
-    "description": "Count tokens for GPT-4o, Claude, Gemini, and other AI models instantly.",
+    "description": "Count tokens for GPT-5.6, Claude 5, Gemini 3, and other AI models instantly.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "url": "https://aitokentools.com/token-counter.html",
@@ -131,18 +131,20 @@
       <label for="model-select">Model</label>
       <select id="model-select" x-model="selectedModel" @change="update()">
         <optgroup label="OpenAI">
-          <option value="gpt4o">GPT-4o / GPT-4o mini (cl100k)</option>
-          <option value="gpt4o">GPT-4.1 (cl100k)</option>
-          <option value="gpt4o">o3 / o4-mini (cl100k)</option>
+          <option value="gpt4o">GPT-5.6 Sol (cl100k)</option>
+          <option value="gpt4o">GPT-5.6 Terra (cl100k)</option>
+          <option value="gpt4o">GPT-5.6 Luna (cl100k)</option>
         </optgroup>
         <optgroup label="Anthropic">
-          <option value="claude">Claude Opus 4.7 (cl100k-compat)</option>
-          <option value="claude">Claude Sonnet 4.6 (cl100k-compat)</option>
+          <option value="claude">Claude Fable 5 (cl100k-compat)</option>
+          <option value="claude">Claude Opus 5 (cl100k-compat)</option>
+          <option value="claude">Claude Sonnet 5 (cl100k-compat)</option>
           <option value="claude">Claude Haiku 4.5 (cl100k-compat)</option>
         </optgroup>
         <optgroup label="Google">
-          <option value="gemini">Gemini 2.5 Pro / Flash (SentencePiece)</option>
-          <option value="gemini">Gemini 2.0 Flash (SentencePiece)</option>
+          <option value="gemini">Gemini 3.7 Flash (SentencePiece)</option>
+          <option value="gemini">Gemini 3.5 Flash (SentencePiece)</option>
+          <option value="gemini">Gemini 2.5 Pro / Flash-Lite (SentencePiece)</option>
         </optgroup>
       </select>
     </div>
@@ -178,14 +180,14 @@
 
     <div class="cost-box" x-show="tokens > 0">
       <div>
-        <div class="cost-label">Estimated input cost (GPT-4o @ $2.50/1M tokens)</div>
+        <div class="cost-label">Estimated input cost (GPT-5.6 Terra @ $2.00/1M tokens)</div>
         <div class="cost-value" x-text="'$' + inputCost"></div>
       </div>
       <a href="/cost-calculator.html" style="font-size:.8rem;color:var(--accent)">Full cost calculator →</a>
     </div>
 
     <p class="note">
-      Token counts use a BPE approximation (cl100k_base). GPT-4o and Claude counts are typically within ±5% for English text. Gemini uses SentencePiece and may vary by ±8%. Your text is never sent to any server — all calculations happen in your browser.
+      Token counts use a BPE approximation (cl100k_base). GPT-5.6 and Claude counts are typically within ±5% for English text. Gemini uses SentencePiece and may vary by ±8%. Your text is never sent to any server — all calculations happen in your browser.
     </p>
   </div>
 
@@ -224,17 +226,17 @@
 
     <div class="faq-item">
       <h2>Are Claude tokens and GPT tokens the same?</h2>
-      <p>They are very similar but not identical. Both OpenAI GPT-4o and Anthropic Claude use variants of the cl100k_base tokenizer vocabulary, which means token counts for the same text will be extremely close — usually within 1–3%. However, small differences exist in how edge cases are handled, particularly around special characters, code, and non-English text. Google's Gemini models use a different tokenizer based on SentencePiece, which can produce noticeably different counts for the same text, especially for languages other than English or for structured formats like JSON and XML.</p>
+      <p>They are very similar but not identical. Both OpenAI GPT-5.6 models and Anthropic Claude use variants of the cl100k_base tokenizer vocabulary, which means token counts for the same text will be extremely close — usually within 1–3%. However, small differences exist in how edge cases are handled, particularly around special characters, code, and non-English text. Google's Gemini models use a different tokenizer based on SentencePiece, which can produce noticeably different counts for the same text, especially for languages other than English or for structured formats like JSON and XML.</p>
     </div>
 
     <div class="faq-item">
       <h2>What are the context window limits for major models?</h2>
-      <p>Context windows vary significantly between models. As of 2026: GPT-4o supports 128,000 tokens; GPT-4.1, Gemini 2.5 Pro, Gemini 2.5 Flash, and Gemini 2.0 Flash all support up to 1,000,000 tokens (1 million); Claude Opus 4.7, Claude Sonnet 4.6, and Claude Haiku 4.5 support 200,000 tokens; o3 and o4-mini support 200,000 tokens. For most use cases, even the 128K context of GPT-4o is more than sufficient. Use the <a href="/model-comparison.html">model comparison table</a> for a full up-to-date breakdown of each model's specifications.</p>
+      <p>Context windows vary significantly between models. As of 2026: GPT-5.6 Sol, Terra, and Luna all support 270,000 tokens; all current Gemini 3.x and 2.x models support up to 1,000,000 tokens (1 million); Claude Fable 5, Opus 5, Sonnet 5, and Haiku 4.5 all support 200,000 tokens. Google Gemini's 1M context window is the largest in the industry, making it well-suited for processing entire codebases or long documents. Use the <a href="/model-comparison.html">model comparison table</a> for a full up-to-date breakdown of each model's specifications.</p>
     </div>
 
     <div class="faq-item">
       <h2>How accurate is this token counter?</h2>
-      <p>This tool uses a BPE approximation algorithm that closely mimics the cl100k_base tokenizer used by GPT-4o and Claude. For typical English prose, accuracy is within ±5%. For code, the accuracy is similar. For non-Latin scripts (Chinese, Japanese, Arabic, etc.), the variance can be higher — up to ±15% — because SentencePiece-based tokenizers like Gemini's segment these languages very differently. For production applications where exact token counts matter (e.g., billing, context window management), use the official tokenizer libraries: <code>tiktoken</code> for OpenAI models, Anthropic's token counting API for Claude, or the Gemini API for Google models.</p>
+      <p>This tool uses a BPE approximation algorithm that closely mimics the cl100k_base tokenizer used by GPT-5.6 and Claude. For typical English prose, accuracy is within ±5%. For code, the accuracy is similar. For non-Latin scripts (Chinese, Japanese, Arabic, etc.), the variance can be higher — up to ±15% — because SentencePiece-based tokenizers like Gemini's segment these languages very differently. For production applications where exact token counts matter (e.g., billing, context window management), use the official tokenizer libraries: <code>tiktoken</code> for OpenAI models, Anthropic's token counting API for Claude, or the Gemini API for Google models.</p>
     </div>
 
     <div class="faq-item">
@@ -244,7 +246,7 @@
 
     <div class="faq-item">
       <h2>What is the difference between input tokens and output tokens?</h2>
-      <p>Input tokens are everything you send to the model: your system prompt, conversation history, and the current user message. Output tokens are what the model generates in response. Almost all AI APIs price these separately, and output tokens are typically 3–5× more expensive than input tokens because text generation requires significantly more compute than text processing. For a GPT-4o call, input is priced at $2.50 per million tokens while output costs $10.00 per million — a 4× difference. When optimizing costs, focus first on output length: if you can achieve the same result with a shorter response, the savings are dramatic at scale.</p>
+      <p>Input tokens are everything you send to the model: your system prompt, conversation history, and the current user message. Output tokens are what the model generates in response. Almost all AI APIs price these separately, and output tokens are typically 4–6× more expensive than input tokens because text generation requires significantly more compute than text processing. For a GPT-5.6 Terra call, input is priced at $2.00 per million tokens while output costs $12.00 per million — a 6× difference. When optimizing costs, focus first on output length: if you can achieve the same result with a shorter response, the savings are dramatic at scale.</p>
     </div>
   </div>
 
@@ -307,7 +309,7 @@ function tokenCounter() {
       this.words = t.trim() ? t.trim().split(/\s+/).length : 0;
       this.lines = t ? t.split('\n').length : 0;
       this.tokens = this.estimateTokens(t);
-      const costPer1M = 2.50;
+      const costPer1M = 2.00;
       this.inputCost = ((this.tokens / 1_000_000) * costPer1M).toFixed(6);
     },
 

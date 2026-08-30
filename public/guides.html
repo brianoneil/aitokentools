@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Developer Guides – Tokenization, Cost Optimization & Model Selection</title>
+  <meta name="description" content="In-depth guides for AI developers: how tokenization works, how to cut API costs, which model to choose, and how to write effective system prompts.">
+  <link rel="canonical" href="https://aitokentools.com/guides.html">
+  <meta property="og:title" content="AI Developer Guides – Tokenization, Cost Optimization & Model Selection">
+  <meta property="og:description" content="In-depth guides for AI developers: tokenization, API cost reduction, model selection, and system prompt engineering.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitokentools.com/guides.html">
+  <meta property="og:image" content="https://aitokentools.com/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Albert+Sans:wght@400;500;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    :root {
+      --bg: #171613; --bg-raised: #1F1D19; --bg-card: #252320;
+      --border: #2E2B25; --text: #E8E0D0; --muted: #8A8070;
+      --accent: #FFBA00; --teal: #0FB6AC; --radius: 5px;
+      --font: 'Albert Sans', system-ui, sans-serif;
+      --font-head: 'Alumni Sans', system-ui, sans-serif;
+      --max-width: 860px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 1rem; line-height: 1.7; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    nav { background: var(--bg-raised); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; display: flex; align-items: center; justify-content: space-between; height: 52px; }
+    .nav-brand { font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: .02em; }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: .83rem; color: var(--muted); font-weight: 500; letter-spacing: .03em; text-transform: uppercase; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+    .wrap { max-width: var(--max-width); margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+    .page-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); font-weight: 600; margin-bottom: .75rem; }
+    h1 { font-family: var(--font-head); font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: .75rem; }
+    .page-sub { font-size: 1.05rem; color: var(--muted); margin-bottom: 3rem; }
+    .guides-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 600px) { .guides-grid { grid-template-columns: 1fr; } }
+    .guide-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: .6rem; transition: border-color .15s; }
+    .guide-card:hover { border-color: var(--accent); text-decoration: none; }
+    .guide-tag { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: var(--teal); }
+    .guide-title { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; color: var(--text); line-height: 1.25; }
+    .guide-desc { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+    .guide-meta { font-size: .78rem; color: var(--muted); margin-top: .25rem; }
+    .guide-read { font-size: .82rem; font-weight: 600; color: var(--accent); margin-top: auto; padding-top: .5rem; }
+    .ad-slot { background: var(--bg-raised); border: 1px dashed var(--border); border-radius: var(--radius); padding: 1.5rem; text-align: center; color: var(--muted); font-size: .78rem; letter-spacing: .05em; margin: 2.5rem 0; }
+    .tools-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .section-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; margin-bottom: 1rem; }
+    .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+    @media (max-width: 640px) { .tools-grid { grid-template-columns: 1fr 1fr; } }
+    .tool-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; display: flex; flex-direction: column; gap: .3rem; }
+    .tool-card:hover { border-color: var(--accent); text-decoration: none; }
+    .tool-card strong { font-family: var(--font-head); font-size: 1rem; color: var(--text); }
+    .tool-card span { font-size: .8rem; color: var(--muted); }
+    footer { background: var(--bg-raised); border-top: 1px solid var(--border); margin-top: 3rem; }
+    .footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 1.5rem 1.25rem; display: flex; flex-direction: column; gap: .75rem; align-items: center; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; justify-content: center; }
+    .footer-links a { font-size: .8rem; color: var(--muted); }
+    .footer-links a:hover { color: var(--text); text-decoration: none; }
+    .footer-copy { font-size: .75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">AI<span>Token</span>Tools</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/token-counter.html">Counter</a></li>
+      <li><a href="/cost-calculator.html">Calculator</a></li>
+      <li><a href="/model-comparison.html">Compare</a></li>
+      <li><a href="/guides.html">Guides</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-label">Developer Guides</div>
+  <h1>Guides for Working with AI APIs</h1>
+  <p class="page-sub">In-depth articles on tokenization, cost optimization, model selection, and prompt engineering — written for developers building with AI.</p>
+
+  <div class="guides-grid">
+    <a href="/guide-cost-optimization.html" class="guide-card">
+      <div class="guide-tag">Cost &amp; Optimization</div>
+      <div class="guide-title">How to Reduce Your AI API Costs: A Practical Guide</div>
+      <div class="guide-desc">Proven strategies to cut AI API spending by 40–80% without sacrificing output quality — model selection, prompt caching, batching, and more.</div>
+      <div class="guide-meta">12 min read &nbsp;·&nbsp; August 2026</div>
+      <div class="guide-read">Read guide →</div>
+    </a>
+
+    <a href="/guide-tokenization.html" class="guide-card">
+      <div class="guide-tag">Fundamentals</div>
+      <div class="guide-title">How AI Tokenization Works: A Complete Developer Guide</div>
+      <div class="guide-desc">Everything you need to know about BPE tokenization — how models convert text to tokens, how different providers differ, and how to optimize for token efficiency.</div>
+      <div class="guide-meta">10 min read &nbsp;·&nbsp; August 2026</div>
+      <div class="guide-read">Read guide →</div>
+    </a>
+
+    <a href="/guide-model-selection.html" class="guide-card">
+      <div class="guide-tag">Model Selection</div>
+      <div class="guide-title">GPT-5.6 vs Claude 5 vs Gemini 3: Choosing the Right AI Model</div>
+      <div class="guide-desc">An honest, practical comparison of OpenAI, Anthropic, and Google's latest models — what each provider excels at and how to match models to tasks.</div>
+      <div class="guide-meta">11 min read &nbsp;·&nbsp; August 2026</div>
+      <div class="guide-read">Read guide →</div>
+    </a>
+
+    <a href="/guide-system-prompts.html" class="guide-card">
+      <div class="guide-tag">Prompt Engineering</div>
+      <div class="guide-title">System Prompt Engineering: Get Better Results at Lower Cost</div>
+      <div class="guide-desc">How to write system prompts that improve AI output quality and reduce token usage simultaneously — structure, length, format, and provider-specific tips.</div>
+      <div class="guide-meta">9 min read &nbsp;·&nbsp; August 2026</div>
+      <div class="guide-read">Read guide →</div>
+    </a>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="tools-section">
+    <div class="section-label">Free Tools</div>
+    <div class="tools-grid">
+      <a href="/token-counter.html" class="tool-card">
+        <strong>Token Counter</strong>
+        <span>Count tokens for any model instantly</span>
+      </a>
+      <a href="/cost-calculator.html" class="tool-card">
+        <strong>Cost Calculator</strong>
+        <span>Estimate API spend across models</span>
+      </a>
+      <a href="/model-comparison.html" class="tool-card">
+        <strong>Model Comparison</strong>
+        <span>Full specs and pricing table</span>
+      </a>
+      <a href="/prompt-builder.html" class="tool-card">
+        <strong>Prompt Builder</strong>
+        <span>Build structured system prompts</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/token-counter.html">Token Counter</a>
+      <a href="/cost-calculator.html">Cost Calculator</a>
+      <a href="/model-comparison.html">Model Comparison</a>
+      <a href="/prompt-builder.html">Prompt Builder</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 AITokenTools.com &nbsp;·&nbsp; Free AI developer utilities</div>
+  </div>
+</footer>
+</body>
+</html>
